@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Elena Moore | Past Shows</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    /* Additional styles for shows page */
+    .shows-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 2rem;
+      margin-top: 1rem;
+    }
+    
+    .show-card {
+      background: white;
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+      transition: all 0.3s ease;
+      cursor: pointer;
+      border: 1px solid rgba(0, 0, 0, 0.05);
+    }
+    
+    .show-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 30px -12px rgba(0, 0, 0, 0.15);
+    }
+    
+    .show-poster {
+      width: 100%;
+      height: 280px;
+      background: #eef2f5;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      position: relative;
+    }
+    
+    .show-poster img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.3s ease;
+    }
+    
+    .show-card:hover .show-poster img {
+      transform: scale(1.03);
+    }
+    
+    /* Placeholder for missing posters */
+    .poster-placeholder {
+      font-size: 3rem;
+      background: linear-gradient(135deg, #d9e2ec, #cbdbe9);
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #5f8a8a;
+    }
+    
+    .show-info {
+      padding: 1.25rem;
+    }
+    
+    .show-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin-bottom: 0.3rem;
+      color: #1a3b40;
+    }
+    
+    .show-date {
+      font-size: 0.8rem;
+      color: #7a9e9e;
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    
+    .show-location {
+      font-size: 0.85rem;
+      color: #5a7a7a;
+      margin-bottom: 0.75rem;
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+    
+    .show-role {
+      display: inline-block;
+      background: #eef3f3;
+      padding: 0.2rem 0.7rem;
+      border-radius: 20px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: #2c6b6b;
+      margin-top: 0.5rem;
+    }
+    
+    .preview-text {
+      font-size: 0.85rem;
+      color: #5f7370;
+      margin-top: 0.75rem;
+      line-height: 1.4;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    
+    .expand-hint {
+      text-align: center;
+      margin-top: 0.75rem;
+      padding-top: 0.5rem;
+      font-size: 0.7rem;
+      color: #8fafaf;
+      border-top: 1px solid #e0eceb;
+    }
+    
+    /* Modal for full details */
+    .show-modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(5px);
+      overflow-y: auto;
+    }
+    
+    .show-modal-content {
+      position: relative;
+      background: white;
+      margin: 3% auto;
+      width: 90%;
+      max-width: 900px;
+      border-radius: 28px;
+      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+      animation: modalSlideIn 0.35s ease;
+      overflow: hidden;
+    }
+    
+    @keyframes modalSlideIn {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    .show-modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 1.5rem;
+      background: #f8fbfa;
+      border-bottom: 1px solid #e0eceb;
+    }
+    
+    .show-modal-header h2 {
+      font-size: 1.4rem;
+      margin: 0;
+      color: #1a4e55;
+    }
+    
+    .close-modal {
+      font-size: 2rem;
+      font-weight: bold;
+      cursor: pointer;
+      color: #8aaeae;
+      transition: 0.2s;
+      line-height: 1;
+    }
+    
+    .close-modal:hover {
+      color: #2c5f6b;
+    }
+    
+    .show-modal-body {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      padding: 1.5rem;
+    }
+    
+    .modal-poster {
+      flex: 1;
+      min-width: 200px;
+    }
+    
+    .modal-poster img {
+      width: 100%;
+      border-radius: 16px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+    
+    .modal-info {
+      flex: 2;
+    }
+    
+    .modal-info .show-date {
+      font-size: 0.9rem;
+      margin-bottom: 0.75rem;
+    }
+    
+    .modal-info .show-location {
+      font-size: 0.9rem;
+      margin-bottom: 1rem;
+    }
+    
+    .modal-info .show-role {
+      font-size: 0.8rem;
+      margin-bottom: 1rem;
+      display: inline-block;
+    }
+    
+    .full-description {
+      margin-top: 1rem;
+      line-height: 1.6;
+      color: #2d4a4a;
+    }
+    
+    .full-description p {
+      margin-bottom: 0.75rem;
+    }
+    
+    .what-i-did {
+      background: #f0f6f5;
+      padding: 1rem;
+      border-radius: 16px;
+      margin-top: 1rem;
+    }
+    
+    .what-i-did h4 {
+      margin-bottom: 0.5rem;
+      color: #1a5b5b;
+      font-size: 0.9rem;
+    }
+    
+    @media (max-width: 650px) {
+      .shows-grid {
+        grid-template-columns: 1fr;
+      }
+      .show-modal-body {
+        flex-direction: column;
+      }
+      .show-modal-content {
+        margin: 5% auto;
+        width: 95%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="nav-container">
+    <div class="logo">
+      <a href="index.html">EM</a>
+    </div>
+    <ul class="nav-links">
+      <li><a href="index.html">About Me</a></li>
+      <li><a href="work.html">My Work</a></li>
+      <li><a href="shows.html" class="active">Past Shows</a></li>
+      <li><a href="photos.html">Photos</a></li>
+      <li><a href="skills-certificates.html">Skills & Certs</a></li>
+    </ul>
+  </div>
+</header>
+
+<main class="main-content">
+  <h2 class="section-title">Past Shows & Exhibitions</h2>
+  <p style="margin-bottom: 2rem; color: #5f7c7a;">Click any card to see full details about the show and my involvement.</p>
+  
+  <div class="shows-grid" id="showsGrid">
+    <!-- Show cards will be populated by JavaScript -->
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>© 2025 Elena Moore</p>
+</footer>
+
+<!-- Modal for show details -->
+<div id="showModal" class="show-modal">
+  <div class="show-modal-content">
+    <div class="show-modal-header">
+      <h2 id="modalTitle">Show Title</h2>
+      <span class="close-modal" onclick="closeShowModal()">&times;</span>
+    </div>
+    <div class="show-modal-body" id="modalBody">
+      <!-- Content populated by JavaScript -->
+    </div>
+  </div>
+</div>
+
+<script>
+  // ========== SHOWS DATA ==========
+  // Add your shows here - replace with your actual data
+  const showsData = [
+    {
+      id: 1,
+      title: "Urban Reflections",
+      date: "March 15 - April 20, 2024",
+      location: "Downtown Arts Gallery, Seattle",
+      role: "Exhibiting Artist & Curator",
+      posterImage: "images/shows/urban-reflections-poster.jpg",
+      previewText: "A multimedia exploration of city life through photography and digital art.",
+      fullDescription: "Urban Reflections was a group exhibition featuring 12 artists exploring the relationship between urban environments and personal identity. The show included photography, digital installations, and interactive pieces that invited viewers to reflect on their own city experiences.",
+      whatIDid: [
+        "Curated the selection of 45+ artworks from 12 artists",
+        "Designed the exhibition layout and lighting scheme",
+        "Created 8 original digital photographs for the show",
+        "Managed social media promotion and artist communications",
+        "Coordinated the opening night event (150+ attendees)"
+      ]
+    },
+    {
+      id: 2,
+      title: "Digital Narratives",
+      date: "October 5-28, 2023",
+      location: "Creative Mornings Hub, Berlin",
+      role: "Featured Artist",
+      posterImage: "images/shows/digital-narratives-poster.jpg",
+      previewText: "Interactive storytelling through code and visual design.",
+      fullDescription: "Digital Narratives was a solo exhibition showcasing my work in interactive web-based storytelling. The exhibition featured 5 interactive pieces that responded to viewer movement and touch, exploring themes of memory, connection, and digital identity.",
+      whatIDid: [
+        "Created all 5 interactive installations using HTML/CSS/JavaScript",
+        "Built custom sensors for motion-triggered responses",
+        "Wrote artist statements and technical documentation",
+        "Led 3 artist talk sessions during the exhibition",
+        "Collaborated with sound designer for audio components"
+      ]
+    },
+    {
+      id: 3,
+      title: "Emerging Voices 2023",
+      date: "June 8-30, 2023",
+      location: "Westside Gallery, Los Angeles",
+      role: "Participating Artist",
+      posterImage: "images/shows/emerging-voices-poster.jpg",
+      previewText: "Juried group exhibition highlighting emerging photographers.",
+      fullDescription: "Emerging Voices was a juried exhibition featuring 25 emerging photographers from across North America. Selected by a panel of industry professionals, the show focused on documentary-style photography that captures authentic human moments.",
+      whatIDid: [
+        "Exhibited 6 photographs from my 'Street Stories' series",
+        "Attended artist networking events and portfolio reviews",
+        "Participated in panel discussion on 'The Future of Photography'",
+        "Sold 3 prints during the exhibition run"
+      ]
+    },
+    {
+      id: 4,
+      title: "Code & Canvas",
+      date: "February 10-25, 2023",
+      location: "TechArt Space, San Francisco",
+      role: "Co-Creator & Developer",
+      posterImage: "images/shows/code-canvas-poster.jpg",
+      previewText: "Where programming meets traditional art techniques.",
+      fullDescription: "Code & Canvas was a collaborative exhibition bridging the gap between digital and traditional art forms. Working with 4 traditional painters, I created generative art pieces that responded to their physical brushstrokes in real-time.",
+      whatIDid: [
+        "Developed real-time projection mapping software",
+        "Programmed generative visuals that reacted to brush movements",
+        "Installed and calibrated all technical equipment",
+        "Documented the exhibition process via video and photography",
+        "Created open-source documentation for future artists"
+      ]
+    },
+    {
+      id: 5,
+      title: "Women in Design",
+      date: "November 5-19, 2022",
+      location: "Design Museum, Portland",
+      role: "Panelist & Exhibitor",
+      posterImage: "images/shows/women-in-design-poster.jpg",
+      previewText: "Celebrating women's contributions to digital design.",
+      fullDescription: "Women in Design was both an exhibition and conference highlighting female designers across various disciplines. The event included gallery installations, workshops, and keynote presentations from industry leaders.",
+      whatIDid: [
+        "Exhibited 4 UI/UX case studies from my portfolio",
+        "Served on a panel discussing 'Ethics in Digital Design'",
+        "Led a workshop on responsive web design (25 attendees)",
+        "Networked with recruiters from major tech companies",
+        "Received 'Emerging Designer' recognition award"
+      ]
+    }
+  ];
+
+  // Function to render show cards
+  function renderShows() {
+    const grid = document.getElementById('showsGrid');
+    grid.innerHTML = '';
+    
+    showsData.forEach(show => {
+      const card = document.createElement('div');
+      card.className = 'show-card';
+      card.onclick = () => openShowModal(show.id);
+      
+      // Handle poster image (with fallback)
+      const posterHtml = show.posterImage ? 
+        `<img src="${show.posterImage}" alt="${show.title} poster" onerror="this.parentElement.innerHTML='<div class=\'poster-placeholder\'>🎨</div>'">` :
+        `<div class="poster-placeholder">🎨</div>`;
+      
+      card.innerHTML = `
+        <div class="show-poster">
+          ${posterHtml}
+        </div>
+        <div class="show-info">
+          <div class="show-title">${show.title}</div>
+          <div class="show-date">📅 ${show.date}</div>
+          <div class="show-location">📍 ${show.location}</div>
+          <span class="show-role">${show.role}</span>
+          <div class="preview-text">${show.previewText}</div>
+          <div class="expand-hint">🔍 Click to see full details →</div>
+        </div>
+      `;
+      
+      grid.appendChild(card);
+    });
+  }
+  
+  // Function to open modal with full details
+  function openShowModal(showId) {
+    const show = showsData.find(s => s.id === showId);
+    if (!show) return;
+    
+    const modal = document.getElementById('showModal');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalBody = document.getElementById('modalBody');
+    
+    modalTitle.textContent = show.title;
+    
+    // Handle poster with fallback
+    const posterHtml = show.posterImage ?
+      `<img src="${show.posterImage}" alt="${show.title} poster" onerror="this.src='https://placehold.co/400x500/eef3f3/2c5f6b?text=No+Poster'">` :
+      `<div style="background:#eef2f5; border-radius:16px; padding:2rem; text-align:center;">🎨 Poster Coming Soon</div>`;
+    
+    // Format what I did as list
+    const whatIDidHtml = show.whatIDid ? `
+      <div class="what-i-did">
+        <h4>✨ What I did for this show:</h4>
+        <ul style="margin-left: 1rem; line-height: 1.6;">
+          ${show.whatIDid.map(item => `<li>${item}</li>`).join('')}
+        </ul>
+      </div>
+    ` : '';
+    
+    modalBody.innerHTML = `
+      <div class="modal-poster">
+        ${posterHtml}
+      </div>
+      <div class="modal-info">
+        <div class="show-date">📅 ${show.date}</div>
+        <div class="show-location">📍 ${show.location}</div>
+        <span class="show-role">${show.role}</span>
+        <div class="full-description">
+          <p>${show.fullDescription}</p>
+        </div>
+        ${whatIDidHtml}
+      </div>
+    `;
+    
+    modal.style.display = 'block';
+    document.body.style.overflow = 'hidden';
+  }
+  
+  // Close modal function
+  function closeShowModal() {
+    const modal = document.getElementById('showModal');
+    modal.style.display = 'none';
+    document.body.style.overflow = 'auto';
+  }
+  
+  // Close modal when clicking outside
+  window.onclick = function(event) {
+    const modal = document.getElementById('showModal');
+    if (event.target === modal) {
+      closeShowModal();
+    }
+  }
+  
+  // Close with ESC key
+  document.addEventListener('keydown', function(event) {
+    const modal = document.getElementById('showModal');
+    if (event.key === 'Escape' && modal.style.display === 'block') {
+      closeShowModal();
+    }
+  });
+  
+  // Initialize page
+  renderShows();
+</script>
+
+</body>
+</html>
