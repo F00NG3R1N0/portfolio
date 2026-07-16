@@ -295,12 +295,13 @@ body {
         overflow: hidden;
     }
 
+    /* Keep text alignment on mobile */
     .split-left .split-content {
-        text-align: center;
+        text-align: left;
     }
     
     .split-right .split-content {
-        text-align: center;
+        text-align: right;
     }
 
     /* Disable hover effects on touch devices */
@@ -358,8 +359,17 @@ body {
     }
 
     .split-content {
-        width: 90%;
+        width: 85%;
         padding: 15px;
+    }
+
+    /* Keep text alignment on very small screens */
+    .split-left .split-content {
+        text-align: left;
+    }
+    
+    .split-right .split-content {
+        text-align: right;
     }
 
     .split-content h2 {
