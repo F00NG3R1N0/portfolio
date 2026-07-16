@@ -37,12 +37,18 @@
     box-sizing: border-box;
 }
 
+html {
+    height: 100%;
+}
+
 body {
     font-family: var(--font-family);
     background: var(--color-primary);
     color: var(--color-white);
     min-height: 100vh;
-    overflow: hidden;
+    min-height: 100dvh; /* For dynamic viewport height on mobile */
+    overflow-y: auto; /* Allow scrolling */
+    overflow-x: hidden;
 }
 
 /* ============================================
@@ -54,6 +60,7 @@ body {
     background: var(--color-white);
     position: relative;
     z-index: 10;
+    flex-shrink: 0;
 }
 
 .name {
@@ -69,7 +76,7 @@ body {
 
 .title {
     font-size: var(--font-size-portfolio);
-    line-height: vAR(--font-size-portfolio-lh);
+    line-height: var(--font-size-portfolio-lh);
     color: var(--color-secondary);
     opacity: 0.8;
     letter-spacing: 5px;
@@ -82,7 +89,8 @@ body {
    ============================================ */
 .split-container {
     display: flex;
-    height: calc(105vh - 120px);
+    height: calc(100vh - 120px);
+    height: calc(100dvh - 120px); /* Dynamic viewport height */
     width: 100%;
     position: relative;
     overflow: visible;
@@ -98,6 +106,7 @@ body {
     overflow: hidden;
     transition: flex var(--transition-smooth);
     cursor: pointer;
+    text-decoration: none;
 }
 
 /* ============================================
@@ -109,7 +118,7 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    overflow: visible;
+    overflow: hidden;
 }
 
 /* ============================================
@@ -236,7 +245,6 @@ body {
 
 .split-right:hover .split-image {
     transform: scale(1.25) translateY(10%);
-    
 }
 
 .split-right:hover .hover-overlay {
@@ -256,41 +264,157 @@ body {
 }
 
 /* ============================================
-   RESPONSIVE
+   RESPONSIVE - TABLET AND MOBILE
    ============================================ */
 @media (max-width: 768px) {
+    :root {
+        --font-size-name: 24px;
+        --font-size-side-title: 28px;
+        --font-size-side-text: 13px;
+        --spacing-header: 15px;
+    }
+
+    body {
+        overflow-y: auto;
+    }
 
     .split-container {
         flex-direction: column;
-        height: calc(100vh - 100px);
+        height: auto;
+        min-height: calc(100vh - 100px);
+        min-height: calc(100dvh - 100px);
+        gap: 0;
+    }
+
+    .split-left,
+    .split-right {
+        flex: 0 0 50vh;
+        flex: 0 0 50dvh;
+        min-height: 300px;
+        width: 100%;
+        overflow: hidden;
+    }
+
+    .split-left .split-content {
+        text-align: center;
+    }
+    
+    .split-right .split-content {
+        text-align: center;
+    }
+
+    /* Disable hover effects on touch devices */
+    .split-left:hover,
+    .split-right:hover {
+        flex: 0 0 50vh;
+        flex: 0 0 50dvh;
+    }
+
+    .split-left:hover .split-image,
+    .split-right:hover .split-image {
+        transform: none;
+    }
+
+    .split-left:hover .split-content,
+    .split-right:hover .split-content {
+        transform: translate(-50%, -50%) scale(1);
+    }
+
+    .split-left:active .split-image,
+    .split-right:active .split-image {
+        transform: scale(1.05);
+    }
+
+    .split-left:active .split-content,
+    .split-right:active .split-content {
+        transform: translate(-50%, -50%) scale(1.02);
+    }
+
+    .split-left:active .hover-overlay,
+    .split-right:active .hover-overlay {
+        opacity: 1;
+    }
+}
+
+@media (max-width: 480px) {
+    :root {
+        --font-size-name: 20px;
+        --font-size-side-title: 22px;
+        --font-size-side-text: 12px;
+        --spacing-header: 12px;
+    }
+
+    .split-left,
+    .split-right {
+        flex: 0 0 45vh;
+        flex: 0 0 45dvh;
+        min-height: 250px;
     }
 
     .split-left:hover,
     .split-right:hover {
-        flex: 1.4;
+        flex: 0 0 45vh;
+        flex: 0 0 45dvh;
     }
 
-    .split-left:hover .split-image {
-        transform: scale(1.15) translateY(5%);
+    .split-content {
+        width: 90%;
+        padding: 15px;
     }
 
-    .split-right:hover .split-image {
-        transform: scale(1.25) translateY(10%);
+    .split-content h2 {
+        font-size: var(--font-size-side-title);
     }
-   
-    .split-left .split-content {
-        text-align: left;
+
+    .split-content p {
+        font-size: var(--font-size-side-text);
     }
-    .split-right .split-content {
-        text-align: right;
+
+    .split-content view {
+        font-size: var(--font-size-side-text);
     }
-   
 }
 
-@media (max-width: 480px) {
+/* Support for very small screens */
+@media (max-height: 600px) and (max-width: 480px) {
+    .split-left,
+    .split-right {
+        flex: 0 0 40vh;
+        flex: 0 0 40dvh;
+        min-height: 200px;
+    }
 
+    .split-left:hover,
+    .split-right:hover {
+        flex: 0 0 40vh;
+        flex: 0 0 40dvh;
+    }
 
+    .split-content h2 {
+        font-size: 18px;
+    }
+
+    .split-content p {
+        font-size: 11px;
+    }
+
+    .split-content view {
+        font-size: 11px;
+    }
+}
+
+/* Fix for landscape mode on mobile */
+@media (max-height: 500px) and (orientation: landscape) {
+    .split-left,
+    .split-right {
+        flex: 0 0 100vh;
+        flex: 0 0 100dvh;
+        min-height: 100%;
+    }
+    
     .split-container {
+        flex-direction: row;
         height: calc(100vh - 80px);
+        height: calc(100dvh - 80px);
     }
 }
