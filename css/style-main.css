@@ -1,0 +1,295 @@
+/* ============================================
+   CONSTANTS
+   ============================================ */
+:root {
+    /* Colors */
+    --color-primary: #003c62;
+    --color-secondary: #003d66;
+    --color-accent: #478eba;
+    --color-white: #ffffff;
+    --color-hover-overlay: rgba(0, 0, 0, 0.5);
+    --color-gold-accent: #ba7347;
+    
+    /* Typography */
+    --font-family: "Futura", 'Segoe UI', system-ui, -apple-system, sans-serif;
+    --font-size-name: 32px;
+    --font-size-name-lh: 1.25;
+    --font-size-portfolio: 15px;
+    --font-size-portfolio-lh: 1.75;
+    --font-size-side-title: 40px;
+    --font-size-side-text: 15px;
+    
+    /* Spacing */
+    --spacing-header: 20px;
+    --spacing-side: 20px;
+    
+    /* Transitions */
+    --transition-smooth: 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    --transition-image: 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* ============================================
+   RESET & BASE
+   ============================================ */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-family);
+    background: var(--color-primary);
+    color: var(--color-white);
+    min-height: 100vh;
+    overflow: hidden;
+}
+
+/* ============================================
+   HEADER - CLEAN (removed bottom border)
+   ============================================ */
+.header {
+    text-align: center;
+    padding: var(--spacing-header);
+    background: var(--color-white);
+    position: relative;
+    z-index: 10;
+}
+
+.name {
+    font-size: var(--font-size-name);
+    line-height: var(--font-size-name-lh);
+    font-weight: 500;
+    letter-spacing: 2px;
+    background: var(--color-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.title {
+    font-size: var(--font-size-portfolio);
+    line-height: vAR(--font-size-portfolio-lh);
+    color: var(--color-secondary);
+    opacity: 0.8;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    padding-top: 5px;
+}
+
+/* ============================================
+   SPLIT CONTAINER
+   ============================================ */
+.split-container {
+    display: flex;
+    height: calc(105vh - 120px);
+    width: 100%;
+    position: relative;
+    overflow: visible;
+}
+
+/* ============================================
+   SPLIT SIDES - BASE STYLES
+   ============================================ */
+.split-left,
+.split-right {
+    flex: 1;
+    position: relative;
+    overflow: hidden;
+    transition: flex var(--transition-smooth);
+    cursor: pointer;
+}
+
+/* ============================================
+   IMAGE WRAPPER
+   ============================================ */
+.image-wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+}
+
+/* ============================================
+   IMAGES - BASE
+   ============================================ */
+.split-image {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform var(--transition-image), filter var(--transition-smooth);
+}
+
+/* LEFT IMAGE - Stays anchored to left */
+.split-left .split-image {
+    left: 0;
+    object-position: center;
+}
+
+/* RIGHT IMAGE - Stays anchored to right */
+.split-right .split-image {
+    right: 0;
+    object-position: center;
+}
+
+/* ============================================
+   HOVER OVERLAY
+   ============================================ */
+.hover-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--color-hover-overlay);
+    opacity: 0;
+    transition: opacity var(--transition-smooth);
+    z-index: 1;
+    pointer-events: none;
+}
+
+/* ============================================
+   CONTENT OVERLAY
+   ============================================ */
+.split-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+    padding: var(--spacing-side);
+    width: 80%;
+    pointer-events: none;
+    transition: transform var(--transition-smooth), color var(--transition-smooth);
+}
+
+.split-left .split-content {
+    text-align: left;
+}
+
+.split-right .split-content {
+    text-align: right;
+}
+
+.split-content h2 {
+    font-size: var(--font-size-side-title);
+    font-weight: 250;
+    color: var(--color-white);
+    margin-bottom: 0.5rem;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 1);
+    transition: color var(--transition-smooth);
+}
+
+.split-content p {
+    font-size: var(--font-size-side-text);
+    color: var(--color-white);
+    opacity: 0.9;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+    transition: opacity var(--transition-smooth);
+}
+
+.split-content view {
+    font-size: var(--font-size-side-text);
+    color: var(--color-gold-accent);
+    opacity: 0.9;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+    transition: opacity var(--transition-smooth);
+}
+
+/* ============================================
+   HOVER EFFECTS - LEFT SIDE
+   ============================================ */
+.split-left:hover {
+    flex: 1.24;
+}
+
+.split-left:hover .split-image {
+    transform: scale(1.15) translateX(5%);
+}
+
+.split-left:hover .hover-overlay {
+    opacity: 1;
+}
+
+.split-left:hover .split-content {
+    transform: translate(-50%, -50%) scale(1.05);
+}
+
+.split-left:hover .split-content h2 {
+    color: var(--color-accent);
+}
+
+.split-left:hover .split-content p {
+    opacity: 1;
+}
+
+/* ============================================
+   HOVER EFFECTS - RIGHT SIDE
+   ============================================ */
+.split-right:hover {
+    flex: 1.24;
+}
+
+.split-right:hover .split-image {
+    transform: scale(1.25) translateY(10%);
+    
+}
+
+.split-right:hover .hover-overlay {
+    opacity: 1;
+}
+
+.split-right:hover .split-content {
+    transform: translate(-50%, -50%) scale(1.05);
+}
+
+.split-right:hover .split-content h2 {
+    color: var(--color-accent);
+}
+
+.split-right:hover .split-content p {
+    opacity: 1;
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+@media (max-width: 768px) {
+
+    .split-container {
+        flex-direction: column;
+        height: calc(100vh - 100px);
+    }
+
+    .split-left:hover,
+    .split-right:hover {
+        flex: 1.4;
+    }
+
+    .split-left:hover .split-image {
+        transform: scale(1.15) translateY(5%);
+    }
+
+    .split-right:hover .split-image {
+        transform: scale(1.25) translateY(10%);
+    }
+    
+    .split-left .split-content {
+        text-align: center;
+    }
+    .split-right .split-content {
+        text-align: center;
+    }
+}
+
+@media (max-width: 480px) {
+
+
+    .split-container {
+        height: calc(100vh - 80px);
+    }
+}

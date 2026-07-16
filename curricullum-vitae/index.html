@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Yap Siak Foong | About Me</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    /* About page bottom social section - Full width flexible */
+    .social-section {
+      margin-top: 3rem;
+      padding-top: 2rem;
+      border-top: 2px solid rgba(71, 142, 186, 0.1);
+    }
+    
+    .social-section-title {
+      text-align: left;
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+      color: #1a2a33;
+      border-left: 5px solid #478eba;
+      padding-left: 1rem;
+    }
+    
+    .social-section-subtitle {
+      text-align: left;
+      font-size: 0.9rem;
+      color: #3a5a6a;
+      margin-bottom: 1.5rem;
+      padding-left: 1rem;
+    }
+    
+    .social-block {
+      background: white;
+      border-radius: 20px;
+      padding: 1.5rem 2rem;
+      border: 2px solid rgba(71, 142, 186, 0.08);
+      box-shadow: 0 2px 12px rgba(71, 142, 186, 0.04);
+      width: 100%;
+      transition: all 0.3s ease;
+    }
+    
+    .social-block:hover {
+      border-color: rgba(71, 142, 186, 0.15);
+      box-shadow: 0 4px 20px rgba(71, 142, 186, 0.08);
+    }
+    
+    .social-grid {
+      display: flex;
+      flex-direction: row;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    
+    .social-button {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 0.7rem 1.2rem;
+      background: #f8fafc;
+      border-radius: 12px;
+      text-decoration: none;
+      color: inherit;
+      border: 2px solid rgba(71, 142, 186, 0.06);
+      transition: all 0.25s ease;
+      flex: 1;
+      min-width: 200px;
+    }
+    
+    .social-button:hover {
+      transform: translateY(-2px);
+      border-color: rgba(71, 142, 186, 0.2);
+      box-shadow: 0 4px 12px rgba(71, 142, 186, 0.08);
+    }
+    
+    .social-button .icon-wrapper {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: transform 0.25s ease;
+    }
+    
+    .social-button:hover .icon-wrapper {
+      transform: scale(1.05);
+    }
+    
+    .social-button .icon-wrapper svg {
+      width: 18px;
+      height: 18px;
+      fill: white;
+    }
+    
+    .social-button .button-text {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+    
+    .social-button .button-label {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #1a2a33;
+      line-height: 1.2;
+    }
+    
+    .social-button .button-handle {
+      font-size: 0.7rem;
+      color: #5a7a85;
+    }
+    
+    .social-button .arrow {
+      color: #b0c4cd;
+      font-size: 1.1rem;
+      transition: all 0.25s ease;
+      flex-shrink: 0;
+    }
+    
+    .social-button:hover .arrow {
+      color: #478eba;
+      transform: translateX(4px);
+    }
+    
+    /* Individual button colors on hover */
+    .social-linkedin:hover {
+      background: rgba(10, 102, 194, 0.04);
+      border-color: rgba(10, 102, 194, 0.3);
+    }
+    .social-linkedin .icon-wrapper {
+      background: #0a66c2;
+    }
+    
+    .social-whatsapp:hover {
+      background: rgba(37, 211, 102, 0.04);
+      border-color: rgba(37, 211, 102, 0.3);
+    }
+    .social-whatsapp .icon-wrapper {
+      background: #25d366;
+    }
+    
+    .social-email:hover {
+      background: rgba(234, 67, 53, 0.04);
+      border-color: rgba(234, 67, 53, 0.25);
+    }
+    .social-email .icon-wrapper {
+      background: #ea4335;
+    }
+    
+    /* Remove the original social-links styles from About page */
+    .about-text .social-links {
+      display: none;
+    }
+    
+    @media (max-width: 768px) {
+      .social-grid {
+        flex-direction: column;
+      }
+      
+      .social-button {
+        min-width: unset;
+        width: 100%;
+      }
+    }
+    
+    @media (max-width: 600px) {
+      .social-block {
+        padding: 1.2rem 1.2rem;
+        border-radius: 16px;
+      }
+      
+      .social-button {
+        padding: 0.6rem 1rem;
+        border-radius: 10px;
+      }
+      
+      .social-button .icon-wrapper {
+        width: 32px;
+        height: 32px;
+      }
+      
+      .social-button .icon-wrapper svg {
+        width: 16px;
+        height: 16px;
+      }
+      
+      .social-button .button-label {
+        font-size: 0.8rem;
+      }
+      
+      .social-button .button-handle {
+        font-size: 0.65rem;
+      }
+      
+      .social-section-title {
+        font-size: 1.3rem;
+      }
+    }
+    
+    @media (max-width: 400px) {
+      .social-block {
+        padding: 1rem 0.8rem;
+      }
+      
+      .social-button {
+        padding: 0.5rem 0.8rem;
+        gap: 0.75rem;
+      }
+      
+      .social-button .icon-wrapper {
+        width: 28px;
+        height: 28px;
+      }
+      
+      .social-button .icon-wrapper svg {
+        width: 14px;
+        height: 14px;
+      }
+      
+      .social-button .button-label {
+        font-size: 0.75rem;
+      }
+      
+      .social-button .button-handle {
+        font-size: 0.6rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="nav-container">
+    <div class="logo">
+      <a href="/portfolio/curriculum-vitae/">YSF</a>
+    </div>
+    
+    <input type="checkbox" id="menu-toggle" class="menu-toggle">
+    
+    <label for="menu-toggle" class="hamburger" aria-label="Toggle navigation">
+      <span class="bar"></span>
+      <span class="bar"></span>
+      <span class="bar"></span>
+    </label>
+    
+    <ul class="nav-links">
+      <li><a href="/portfolio/curriculum-vitae/" class="active">About Me</a></li>
+      <li><a href="/portfolio/curriculum-vitae/work-experience.html">Work Experiences</a></li>
+      <li><a href="/portfolio/curriculum-vitae/skills-certificates.html">Skills & Certificates</a></li>
+      <li><a href="/portfolio/curriculum-vitae/contact-me.html">Contact Me</a></li>
+    </ul>
+  </div>
+</header>
+
+<main class="main-content">
+  <div class="about-grid">
+    <div class="profile-pic">
+      <div class="avatar-placeholder">
+        <img src="images/profile.png" alt="Siak Foong profile photo">
+      </div>
+    </div>
+    <div class="about-text">
+      <h2>Yap Siak Foong</h2>
+      <div class="tagline">Aspiring Software Developer</div>
+      <p>I'm an Actuarial Science graduate from Sunway University but numbers were never the full story. Tech is where my curiosity actually lives. I started in data, moved into operations, and somewhere along the way, realized I'd rather build the systems than just report on them.</p>
+      <p>That realization took me from NielsenIQ, where I supported the New Zealand Reference Data Team as a Data Processing Specialist and Quality Representative — handling data integrity, training new joiners, and owning quality reporting — to 2X Marketing, where I dove headfirst into automation. I wrote Python scripts, built email flows in Marketo and HubSpot, managed Salesforce integrations, and orchestrated cross-platform workflows with Power Automate across 5+ client accounts. I was the guy who made things talk to each other — and that chaos taught me more than any course could.</p>
+      <p>I took that foundation to NielsenIQ, where I joined Operations as a Data Processing Specialist supporting the New Zealand Reference Data Team. On top of that, I stepped up as the team's Quality Representative — which meant owning issue resolution and making sure our data stayed accurate and reliable.</p>
+      <p>But I wanted to build things, not just analyze them. That itch for automation brought me to 2X Marketing, through a friend's recommendation. There, I hit the ground running — building automations, writing scripts, managing email marketing flows, running system audits, and juggling a growing stack of tools. It was chaotic in the best way.</p>
+      <p>Right now, I'm diving headfirst into Software Development — not just coding, but really understanding how systems tick. I'm actively building this very site as my portfolio/CV, and I'm working through a Full-Stack Web Development Bootcamp alongside learning CMS platforms like Webflow. I'm looking for roles where I can blend my data logic with my growing dev skills — and honestly, I'm excited to see where that takes me.</p>
+    </div>
+  </div>
+  
+  <!-- Social Section - Full Width Flexible -->
+  <div class="social-section">
+    <h3 class="social-section-title">Connect With Me</h3>
+    <p class="social-section-subtitle">Reach out through any channel below</p>
+    
+    <div class="social-block">
+      <div class="social-grid">
+        <!-- LinkedIn -->
+        <a href="https://www.linkedin.com/in/yapsiakfoong/" target="_blank" rel="noopener noreferrer" class="social-button social-linkedin">
+          <div class="icon-wrapper">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+            </svg>
+          </div>
+          <div class="button-text">
+            <span class="button-label">LinkedIn</span>
+            <span class="button-handle">@yapsiakfoong</span>
+          </div>
+          <span class="arrow">→</span>
+        </a>
+        
+        <!-- WhatsApp -->
+        <a href="https://wa.me/60123456789" target="_blank" rel="noopener noreferrer" class="social-button social-whatsapp">
+          <div class="icon-wrapper">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+            </svg>
+          </div>
+          <div class="button-text">
+            <span class="button-label">WhatsApp</span>
+            <span class="button-handle">+60 12-345 6789</span>
+          </div>
+          <span class="arrow">→</span>
+        </a>
+        
+        <!-- Email -->
+        <a href="mailto:siakfoong.yap@email.com" class="social-button social-email">
+          <div class="icon-wrapper">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path d="M1.5 8.67v8.58a3 3 0 003 3h15a3 3 0 003-3V8.67l-8.928 5.493a3 3 0 01-3.144 0L1.5 8.67z"/>
+              <path d="M22.5 6.908V6.75a3 3 0 00-3-3h-15a3 3 0 00-3 3v.158l9.714 5.978a1.5 1.5 0 001.572 0L22.5 6.908z"/>
+            </svg>
+          </div>
+          <div class="button-text">
+            <span class="button-label">Email</span>
+            <span class="button-handle">siakfoong.yap@email.com</span>
+          </div>
+          <span class="arrow">→</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>© 2026 Yap Siak Foong</p>
+</footer>
+
+</body>
+</html>
