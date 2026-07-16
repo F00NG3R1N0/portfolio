@@ -277,6 +277,14 @@ body {
     .split-right:hover .split-image {
         transform: scale(1.25) translateY(10%);
     }
+   
+    .split-left .split-content {
+        text-align: left;
+    }
+    .split-right .split-content {
+        text-align: right;
+    }
+   
 }
 
 @media (max-width: 480px) {
