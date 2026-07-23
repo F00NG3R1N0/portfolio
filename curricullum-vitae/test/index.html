@@ -49,7 +49,7 @@
       color: var(--text);
       line-height: 1.6;
       transition: background var(--transition), color var(--transition);
-      padding-top: 72px; /* space for fixed header */
+      padding-top: 72px;
     }
 
     a {
@@ -122,6 +122,26 @@
       box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
     }
 
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .back-link {
+      color: var(--text-light);
+      font-size: 1.1rem;
+      padding: 4px 8px;
+      border-radius: 8px;
+      transition: all var(--transition);
+      display: inline-flex;
+      align-items: center;
+    }
+    .back-link:hover {
+      color: var(--brand);
+      background: var(--bg-alt);
+    }
+
     .logo {
       font-size: 1.3rem;
       font-weight: 700;
@@ -137,18 +157,25 @@
       align-items: center;
       gap: 28px;
     }
-    nav a {
+
+    /* Desktop Nav Links */
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+    }
+    .nav-links a {
       font-size: 0.9rem;
       font-weight: 500;
       color: var(--text-light);
       transition: color var(--transition);
       position: relative;
     }
-    nav a:hover,
-    nav a.active {
+    .nav-links a:hover,
+    .nav-links a.active {
       color: var(--brand);
     }
-    nav a::after {
+    .nav-links a::after {
       content: '';
       position: absolute;
       bottom: -4px;
@@ -158,11 +185,41 @@
       background: var(--brand);
       transition: width var(--transition);
     }
-    nav a:hover::after {
+    .nav-links a:hover::after {
       width: 100%;
     }
 
-    /* Header buttons (resume + dark toggle) */
+    /* Hamburger Menu */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 4px;
+      z-index: 1001;
+    }
+    .hamburger span {
+      display: block;
+      width: 25px;
+      height: 3px;
+      background: var(--text);
+      border-radius: 3px;
+      transition: all var(--transition);
+      transform-origin: center;
+    }
+    .hamburger.active span:nth-child(1) {
+      transform: rotate(45deg) translate(5px, 5px);
+    }
+    .hamburger.active span:nth-child(2) {
+      opacity: 0;
+    }
+    .hamburger.active span:nth-child(3) {
+      transform: rotate(-45deg) translate(5px, -5px);
+    }
+
+    /* Header actions */
     .header-actions {
       display: flex;
       align-items: center;
@@ -201,7 +258,6 @@
       color: var(--brand);
     }
 
-    /* Terminal trigger (easter egg) */
     .terminal-trigger {
       background: none;
       border: 1px solid var(--border);
@@ -321,6 +377,10 @@
       font-size: 0.85rem;
       margin-bottom: 4px;
     }
+    .pillar h4 i {
+      margin-right: 8px;
+      color: var(--brand);
+    }
     .pillar p {
       font-size: 0.85rem;
       color: var(--text-light);
@@ -374,6 +434,10 @@
       font-size: 0.9rem;
       color: var(--text-light);
       font-style: italic;
+    }
+    .exploring i {
+      margin-right: 6px;
+      color: var(--brand);
     }
     .exploring strong {
       color: var(--brand);
@@ -592,6 +656,9 @@
       font-size: 0.85rem;
       color: var(--text-light);
     }
+    footer .footer-copy i {
+      color: var(--brand);
+    }
 
     /* Certificate Accordion in Footer */
     .cert-accordion {
@@ -751,7 +818,7 @@
       color: #6c7086;
     }
 
-    /* ---------- Responsive ---------- */
+    /* ---------- RESPONSIVE ---------- */
     @media (max-width: 768px) {
       body {
         padding-top: 64px;
@@ -759,27 +826,58 @@
       header {
         height: 64px;
         padding: 0 16px;
-        flex-wrap: wrap;
       }
+
       .logo {
         font-size: 1rem;
       }
-      nav {
-        gap: 14px;
-        font-size: 0.8rem;
+
+      /* Show hamburger on mobile */
+      .hamburger {
+        display: flex;
       }
-      nav a {
-        font-size: 0.75rem;
+
+      /* Hide nav links by default on mobile */
+      .nav-links {
+        position: fixed;
+        top: 64px;
+        left: 0;
+        width: 100%;
+        background: var(--bg);
+        flex-direction: column;
+        padding: 24px 20px;
+        gap: 16px;
+        border-bottom: 1px solid var(--border);
+        transform: translateY(-120%);
+        transition: transform 0.3s ease;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+        z-index: 999;
       }
-      .header-actions .btn-resume {
-        font-size: 0.7rem;
-        padding: 4px 12px;
+      .nav-links.open {
+        transform: translateY(0);
+      }
+      .nav-links a {
+        font-size: 1rem;
+        padding: 8px 0;
+        width: 100%;
+        text-align: center;
+      }
+      .nav-links a::after {
+        display: none;
+      }
+
+      /* Adjust header actions on mobile */
+      .header-actions .btn-resume span {
+        display: none;
+      }
+      .header-actions .btn-resume i {
+        margin: 0;
       }
       .dark-toggle,
       .terminal-trigger {
-        width: 32px;
-        height: 32px;
-        font-size: 0.8rem;
+        width: 34px;
+        height: 34px;
+        font-size: 0.85rem;
       }
 
       #hero h1 {
@@ -816,19 +914,53 @@
         width: 95%;
         max-height: 90vh;
       }
+
+      .back-link {
+        font-size: 0.95rem;
+        padding: 2px 6px;
+      }
     }
 
     @media (max-width: 480px) {
-      nav a:not(.nav-main) {
-        display: none;
-      }
-      nav a.nav-main {
-        font-weight: 600;
-        color: var(--text);
-      }
       .hero-actions {
         flex-direction: column;
-        align-items: flex-start;
+        align-items: stretch;
+      }
+      .hero-actions .btn-primary,
+      .hero-actions .btn-outline {
+        text-align: center;
+      }
+      .hero-actions .social-icon {
+        font-size: 1.3rem;
+        margin: 0 8px;
+      }
+      .hero-actions .social-icon:first-of-type {
+        margin-left: 0;
+      }
+
+      .header-actions .btn-resume {
+        padding: 4px 10px;
+        font-size: 0.7rem;
+      }
+      .header-actions .btn-resume span {
+        display: none;
+      }
+
+      .section-title {
+        font-size: 1.6rem;
+      }
+    }
+
+    /* Small fix for very small screens */
+    @media (max-width: 360px) {
+      .header-actions {
+        gap: 6px;
+      }
+      .dark-toggle,
+      .terminal-trigger {
+        width: 30px;
+        height: 30px;
+        font-size: 0.75rem;
       }
     }
   </style>
@@ -837,14 +969,33 @@
 
   <!-- ===== HEADER ===== -->
   <header>
-    <a href="#hero" class="logo">Yap Siak Foong</a>
+    <div class="header-left">
+      <!-- Back Link - Change href to your desired URL -->
+      <a href="#" id="backLink" class="back-link" aria-label="Go back">
+        <i class="fas fa-chevron-left"></i>
+      </a>
+      <a href="#" class="logo">Yap Siak Foong</a>
+    </div>
+
     <nav>
-      <a href="#about" class="nav-main">About</a>
-      <a href="#experience">Experience</a>
-      <a href="#projects">Projects</a>
-      <a href="#contact">Contact</a>
+      <!-- Hamburger Toggle -->
+      <button class="hamburger" id="hamburgerToggle" aria-label="Toggle menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+      <!-- Nav Links -->
+      <div class="nav-links" id="navLinks">
+        <a href="#about">About</a>
+        <a href="#experience">Experience</a>
+        <a href="#projects">Projects</a>
+        <a href="#contact">Contact</a>
+      </div>
+
+      <!-- Header Actions -->
       <div class="header-actions">
-        <a href="#" class="btn-resume" download><i class="fas fa-file-pdf"></i> Resume</a>
+        <a href="#" class="btn-resume" download><i class="fas fa-file-pdf"></i> <span>Resume</span></a>
         <button class="terminal-trigger" id="terminalTrigger" aria-label="Open Terminal">&lt;/&gt;</button>
         <button class="dark-toggle" id="darkToggle" aria-label="Toggle dark mode">
           <i class="fas fa-moon"></i>
@@ -909,17 +1060,17 @@
           </p>
           <div class="pillars">
             <div class="pillar">
-  <h4><i class="fas fa-calculator" style="color: var(--brand); margin-right: 8px;"></i> Analytical Foundation</h4>
-  <p>Actuarial Science degree = rigorous math + logical problem-solving.</p>
-</div>
-<div class="pillar">
-  <h4><i class="fas fa-cogs" style="color: var(--brand); margin-right: 8px;"></i> Operations Engineering</h4>
-  <p>Marketo/Salesforce workflows, Python scripts, Power Automate.</p>
-</div>
-<div class="pillar">
-  <h4><i class="fas fa-layer-group" style="color: var(--brand); margin-right: 8px;"></i> Full-Stack Curiosity</h4>
-  <p>HTML/CSS, JavaScript, SQL, and a drive to master the whole stack.</p>
-</div>
+              <h4><i class="fas fa-calculator"></i> Analytical Foundation</h4>
+              <p>Actuarial Science degree = rigorous math + logical problem-solving.</p>
+            </div>
+            <div class="pillar">
+              <h4><i class="fas fa-cogs"></i> Operations Engineering</h4>
+              <p>Marketo/Salesforce workflows, Python scripts, Power Automate.</p>
+            </div>
+            <div class="pillar">
+              <h4><i class="fas fa-layer-group"></i> Full-Stack Curiosity</h4>
+              <p>HTML/CSS, JavaScript, SQL, and a drive to master the whole stack.</p>
+            </div>
           </div>
         </div>
         <!-- Right: Skills Tag Cloud -->
@@ -974,15 +1125,15 @@
             </div>
           </div>
           <div class="exploring">
-            <i class="fas fa-rocket" style="color: var(--brand); margin-right: 6px;"></i>
+            <i class="fas fa-rocket"></i>
             Currently exploring: <strong>React, Node.js, and AWS</strong>
-        </div>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ===== WORK EXPERIENCE ===== -->
+  <!-- ===== EXPERIENCE ===== -->
   <section id="experience">
     <div class="container">
       <h2 class="section-title">Work <span>Experience</span></h2>
@@ -1130,7 +1281,7 @@
         </div>
 
         <p class="footer-copy">
-          &copy; 2026 Yap Siak Foong · Built with <i class="fas fa-heart" style="color: var(--brand);"></i> on GitHub Pages
+          &copy; 2026 Yap Siak Foong · Built with <i class="fas fa-code"></i> on GitHub Pages
         </p>
         <a href="#hero" style="font-size: 0.85rem; color: var(--text-light);">
           <i class="fas fa-arrow-up"></i> Back to top
@@ -1165,6 +1316,31 @@
         }
       });
 
+      // ---------- Mobile Hamburger Menu ----------
+      const hamburger = document.getElementById('hamburgerToggle');
+      const navLinks = document.getElementById('navLinks');
+
+      hamburger.addEventListener('click', function() {
+        this.classList.toggle('active');
+        navLinks.classList.toggle('open');
+      });
+
+      // Close menu when a link is clicked
+      document.querySelectorAll('.nav-links a').forEach(link => {
+        link.addEventListener('click', function() {
+          hamburger.classList.remove('active');
+          navLinks.classList.remove('open');
+        });
+      });
+
+      // Close menu when clicking outside
+      document.addEventListener('click', function(e) {
+        if (!e.target.closest('nav') && navLinks.classList.contains('open')) {
+          hamburger.classList.remove('active');
+          navLinks.classList.remove('open');
+        }
+      });
+
       // ---------- Rotating Tagline ----------
       const taglines = [
         'Building scalable automation pipelines',
@@ -1195,7 +1371,6 @@
       const terminalInput = document.getElementById('terminalInput');
       const terminalBody = document.getElementById('terminalBody');
 
-      // Command registry
       const commands = {
         whoami: 'Yap Siak Foong · Actuarial Science grad · Marketing Ops turned Developer',
         skills: 'Python, JavaScript, SQL, HTML/CSS, Marketo, Salesforce, Power Automate, Tableau, Git',
@@ -1211,7 +1386,6 @@
       function processCommand(cmd) {
         const trimmed = cmd.trim().toLowerCase();
         if (trimmed === 'clear') {
-          // Remove all child nodes except the last prompt line
           const lines = terminalBody.querySelectorAll('div:not(.terminal-input-line)');
           lines.forEach(el => el.remove());
           return '';
@@ -1227,7 +1401,6 @@
         } else {
           line.innerHTML = `<div class="output">${text}</div>`;
         }
-        // Insert before the input line
         const inputLine = terminalBody.querySelector('.terminal-input-line');
         terminalBody.insertBefore(line, inputLine);
         terminalBody.scrollTop = terminalBody.scrollHeight;
@@ -1263,16 +1436,15 @@
         }
       });
 
-      // Close terminal with Escape key
       document.addEventListener('keydown', function(e) {
         if (e.key === 'Escape' && terminalOverlay.classList.contains('active')) {
           terminalOverlay.classList.remove('active');
         }
       });
 
-      // ---------- Smooth active nav highlight (optional) ----------
+      // ---------- Active Nav Highlight ----------
       const sections = document.querySelectorAll('section[id]');
-      const navLinks = document.querySelectorAll('nav a[href^="#"]');
+      const navLinksAll = document.querySelectorAll('.nav-links a');
 
       window.addEventListener('scroll', function() {
         let current = '';
@@ -1282,13 +1454,19 @@
             current = section.getAttribute('id');
           }
         });
-        navLinks.forEach(link => {
+        navLinksAll.forEach(link => {
           link.classList.remove('active');
           if (link.getAttribute('href') === '#' + current) {
             link.classList.add('active');
           }
         });
       });
+
+      // ---------- Back Link Customization ----------
+      // Change the href below to your desired URL
+      const backLink = document.getElementById('backLink');
+      // Example: backLink.href = 'https://yourwebsite.com';
+      // Or: backLink.href = '/index.html';
 
     })();
   </script>
