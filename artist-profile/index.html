@@ -1,318 +1,1227 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>WIP · maintenance</title>
-  <!-- 
-    ============================================================
-    FONT PLACEHOLDER
-    ============================================================
-    Replace the href below with your custom font URL.
-    If you use a self‑hosted font, update the @font-face in CSS.
-    ============================================================
-  -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,600;14..32,700&display=swap" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Yap Siak Foong · Performer</title>
+  <!-- Font Awesome for Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
   <style>
-    /* 
-      ============================================================
-      BACKGROUND IMAGE PLACEHOLDER
-      ============================================================
-      Replace the URL in the .bg-image rule below with your own.
-      The image covers the entire viewport and stays fixed.
-      ============================================================
-    */
+    /* ---------- CSS Variables / Brand ---------- */
+    :root {
+      --brand: #478eba;
+      --brand-dark: #2e6f94;
+      --brand-light: #e6f2f8;
+      --bg: #ffffff;
+      --bg-alt: #f8fafc;
+      --text: #1e293b;
+      --text-light: #64748b;
+      --border: #e2e8f0;
+      --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+      --radius: 12px;
+      --transition: 0.3s ease;
+    }
+
+    /* Dark Mode Variables */
+    [data-theme="dark"] {
+      --bg: #0f172a;
+      --bg-alt: #1e293b;
+      --text: #f1f5f9;
+      --text-light: #94a3b8;
+      --border: #334155;
+      --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+    }
+
+    /* ---------- Reset & Base ---------- */
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
     }
 
+    html {
+      scroll-behavior: smooth;
+    }
+
     body {
-      min-height: 100vh;
+      font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      transition: background var(--transition), color var(--transition);
+      padding-top: 72px;
+    }
+
+    a {
+      color: var(--brand);
+      text-decoration: none;
+      transition: color var(--transition);
+    }
+    a:hover {
+      color: var(--brand-dark);
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* ---------- Buttons ---------- */
+    .btn-primary {
+      display: inline-block;
+      background: var(--brand);
+      color: #fff;
+      padding: 10px 28px;
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      border: none;
+      cursor: pointer;
+      transition: background var(--transition), transform 0.2s;
+      box-shadow: 0 4px 12px rgba(71, 142, 186, 0.3);
+    }
+    .btn-primary:hover {
+      background: var(--brand-dark);
+      transform: translateY(-2px);
+      color: #fff;
+    }
+
+    .btn-outline {
+      display: inline-block;
+      background: transparent;
+      color: var(--brand);
+      padding: 10px 28px;
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      border: 2px solid var(--brand);
+      cursor: pointer;
+      transition: all var(--transition);
+    }
+    .btn-outline:hover {
+      background: var(--brand);
+      color: #fff;
+    }
+
+    /* ---------- Header / Nav ---------- */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background: var(--bg);
+      border-bottom: 1px solid var(--border);
+      padding: 0 24px;
+      height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      z-index: 1000;
+      transition: background var(--transition), border var(--transition);
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
+    }
+
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .back-link {
+      color: var(--text-light);
+      font-size: 1.1rem;
+      padding: 4px 8px;
+      border-radius: 8px;
+      transition: all var(--transition);
+      display: inline-flex;
+      align-items: center;
+    }
+    .back-link:hover {
+      color: var(--brand);
+      background: var(--bg-alt);
+    }
+
+    .logo {
+        font-family: 'Futura';
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--brand);
+      letter-spacing: -0.5px;
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+    }
+
+    /* Desktop Nav Links */
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+    }
+    .nav-links a {
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--text-light);
+      transition: color var(--transition);
+      position: relative;
+    }
+    .nav-links a:hover,
+    .nav-links a.active {
+      color: var(--brand);
+    }
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--brand);
+      transition: width var(--transition);
+    }
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    /* Hamburger Menu */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 4px;
+      z-index: 1001;
+    }
+    .hamburger span {
+      display: block;
+      width: 25px;
+      height: 3px;
+      background: var(--text);
+      border-radius: 3px;
+      transition: all var(--transition);
+      transform-origin: center;
+    }
+    .hamburger.active span:nth-child(1) {
+      transform: rotate(45deg) translate(5px, 5px);
+    }
+    .hamburger.active span:nth-child(2) {
+      opacity: 0;
+    }
+    .hamburger.active span:nth-child(3) {
+      transform: rotate(-45deg) translate(5px, -5px);
+    }
+
+    /* Header actions */
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .dark-toggle {
+      background: none;
+      border: 1px solid var(--border);
+      border-radius: 50%;
+      width: 38px;
+      height: 38px;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-      background-color: #0b0d10; /* fallback if image fails */
-      color: #f0f4fa;
-      padding: 1.5rem;
-      position: relative;
+      cursor: pointer;
+      color: var(--text);
+      font-size: 1rem;
+      transition: all var(--transition);
+    }
+    .dark-toggle:hover {
+      border-color: var(--brand);
+      color: var(--brand);
     }
 
-    /* 
-      ============================================================
-      BACKGROUND IMAGE – place your image URL here
-      ============================================================
-    */
-    .bg-image {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 0;
-      /* 👇 REPLACE the URL with your own background image */
-      background-image: url('https://images.unsplash.com/photo-1557683316-973673baf926?q=80&w=2029&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
-      background-attachment: fixed;
-      filter: brightness(0.5) saturate(0.8);
-      transition: filter 0.2s;
-    }
-
-    /* subtle overlay to improve text readability */
-    .bg-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(8, 12, 20, 0.55);
-      backdrop-filter: blur(2px);
-      z-index: 1;
-    }
-
-    .main-card {
-      position: relative;
-      z-index: 2;
-      max-width: 720px;
-      width: 100%;
-      background: rgba(18, 24, 34, 0.7);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border-radius: 0.5rem;
-      padding: 3rem 2.5rem;
-      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.06);
-      text-align: center;
-      transition: transform 0.25s ease;
-    }
-
-    .main-card:hover {
-      transform: scale(1.01);
-    }
-
-    .status-badge {
-      display: inline-block;
-      background: rgba(255, 190, 50, 0.18);
-      backdrop-filter: blur(4px);
-      padding: 0.45rem 1.4rem;
-      border-radius: 60px;
-      font-weight: 600;
-      font-size: 0.8rem;
-      letter-spacing: 0.4px;
-      text-transform: uppercase;
-      color: #ffd966;
-      border: 1px solid rgba(255, 200, 80, 0.2);
-      margin-bottom: 1.8rem;
-    }
-
-    .status-badge span {
-      display: inline-block;
-      width: 10px;
-      height: 10px;
-      background: #fbbf24;
+    .terminal-trigger {
+      background: none;
+      border: 1px solid var(--border);
       border-radius: 50%;
-      margin-right: 10px;
-      box-shadow: 0 0 8px #fbbf2480;
-      animation: pulse-dot 1.6s infinite;
-    }
-
-    @keyframes pulse-dot {
-      0% { opacity: 0.5; transform: scale(0.9); }
-      50% { opacity: 1; transform: scale(1.2); }
-      100% { opacity: 0.5; transform: scale(0.9); }
-    }
-
-    h1 {
-      font-size: 3.4rem;
+      width: 38px;
+      height: 38px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: var(--text);
+      font-size: 1rem;
+      transition: all var(--transition);
+      font-family: monospace;
       font-weight: 700;
-      letter-spacing: -0.02em;
-      margin-bottom: 0.6rem;
-      background: linear-gradient(135deg, #ffffff 0%, #cfd9e6 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
+    }
+    .terminal-trigger:hover {
+      border-color: var(--brand);
+      color: var(--brand);
+    }
+
+    /* ---------- Sections ---------- */
+    section {
+      padding: 80px 0;
+      border-bottom: 1px solid var(--border);
+      transition: border var(--transition);
+    }
+    section:last-of-type {
+      border-bottom: none;
+    }
+
+    .section-title {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+      letter-spacing: -0.5px;
+    }
+    .section-title span {
+      color: var(--brand);
+    }
+    .section-subtitle {
+      color: var(--text-light);
+      margin-bottom: 40px;
+      font-size: 1.1rem;
+    }
+
+    /* ---------- Hero ---------- */
+    #hero {
+      padding: 40px 0 60px;
+      border-bottom: 1px solid var(--border);
+      position: relative;
+    }
+    .hero-wrapper {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      align-items: center;
+    }
+    .hero-image {
+      width: 100%;
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      line-height: 0;
+    }
+    .hero-image img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .hero-content h1 {
+        font-family: 'Futura';
+      font-size: 3.2rem;
+      font-weight: 800;
+      letter-spacing: -1px;
       line-height: 1.1;
     }
-
-    .subhead {
-      font-size: 1.3rem;
-      font-weight: 400;
-      color: #bcc8db;
-      margin-bottom: 1.2rem;
-      letter-spacing: -0.01em;
-    }
-
-    .message {
-      font-size: 1.05rem;
-      line-height: 1.6;
-      color: #c8d2e3;
-      max-width: 500px;
-      margin: 0 auto 2rem;
-      background: rgba(0, 0, 0, 0.15);
-      padding: 0.8rem 1.2rem;
-      border-radius: 40px;
-      backdrop-filter: blur(4px);
-      border: 1px solid rgba(255, 255, 255, 0.03);
-    }
-
-    .progress-track {
-      background: rgba(255, 255, 255, 0.06);
-      height: 6px;
-      border-radius: 20px;
-      margin: 1.8rem 0 2.2rem;
-      overflow: hidden;
-      box-shadow: inset 0 1px 3px rgba(0,0,0,0.3);
-    }
-
-    .progress-fill {
-      width: 62%;
-      height: 100%;
-      background: linear-gradient(90deg, #fbbf24, #f59e0b);
-      border-radius: 20px;
-      box-shadow: 0 0 12px #fbbf2470;
-      animation: shimmer 2.6s infinite ease-in-out;
-      background-size: 200% 100%;
-    }
-
-    @keyframes shimmer {
-      0% { background-position: -200% 0; }
-      100% { background-position: 200% 0; }
-    }
-
-    .eta {
-      display: flex;
-      justify-content: center;
-      gap: 1.2rem;
-      flex-wrap: wrap;
-      margin-top: 0.5rem;
-    }
-
-    .eta-item {
-      background: rgba(0, 0, 0, 0.25);
-      padding: 0.45rem 1.2rem;
-      border-radius: 60px;
-      font-size: 0.9rem;
+    .hero-content .tagline {
+      font-size: 1.4rem;
       font-weight: 500;
-      color: #d3def0;
-      border: 1px solid rgba(255, 255, 255, 0.04);
-      backdrop-filter: blur(4px);
+      color: var(--brand);
+      margin: 8px 0 12px;
+    }
+    .hero-content .sub-headline {
+      font-size: 1.1rem;
+      color: var(--text-light);
+      font-style: italic;
+      margin-bottom: 20px;
+    }
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      align-items: center;
+    }
+    .hero-actions .social-icon {
+      font-size: 1.5rem;
+      color: var(--text-light);
+      transition: color var(--transition);
+      margin-left: 4px;
+    }
+    .hero-actions .social-icon:hover {
+      color: var(--brand);
     }
 
-    .eta-item strong {
-      font-weight: 700;
-      color: #f0f4fa;
-      margin-right: 4px;
+    /* ---------- About ---------- */
+    .about-wrapper {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 48px;
+      align-items: start;
+    }
+    .about-image {
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      line-height: 0;
+    }
+    .about-image img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .about-text p {
+      margin-bottom: 16px;
+      color: var(--text-light);
+    }
+    .about-text .highlight {
+      color: var(--brand);
+      font-weight: 600;
     }
 
-    .footer-note {
-      margin-top: 2.4rem;
+    /* ---------- Performances ---------- */
+    .performance-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 28px;
+    }
+    .performance-card {
+      background: var(--bg-alt);
+      border-radius: var(--radius);
+      overflow: hidden;
+      border: 1px solid var(--border);
+      transition: all var(--transition);
+      box-shadow: var(--shadow);
+      display: flex;
+      flex-direction: column;
+    }
+    .performance-card:hover {
+      transform: translateY(-6px);
+      border-color: var(--brand);
+      box-shadow: 0 20px 30px -10px rgba(71, 142, 186, 0.15);
+    }
+
+    /* ADAPTABLE IMAGE CONTAINER - Fits any image size naturally */
+    .performance-card .card-image-wrapper {
+      width: 100%;
+      overflow: hidden;
+      background: var(--brand-light);
+      position: relative;
+      flex-shrink: 0;
+      line-height: 0; /* Removes extra spacing below images */
+    }
+    .performance-card .card-image-wrapper img {
+      width: 100%;
+      height: auto; /* Natural height based on image ratio */
+      display: block;
+      transition: transform var(--transition);
+    }
+    .performance-card:hover .card-image-wrapper img {
+      transform: scale(1.03);
+    }
+
+    /* Gradient fallback if image doesn't load */
+    .performance-card .card-image-wrapper::after {
+      content: '🎭';
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3rem;
+      background: linear-gradient(135deg, var(--brand-light), var(--brand));
+      opacity: 0;
+      transition: opacity var(--transition);
+      pointer-events: none;
+      color: #fff;
+      font-weight: 300;
+    }
+    .performance-card .card-image-wrapper img:not([src]),
+    .performance-card .card-image-wrapper img[src=""],
+    .performance-card .card-image-wrapper img[src*="placeholder"] {
+      opacity: 0;
+    }
+    .performance-card .card-image-wrapper img:not([src]) ~ ::after,
+    .performance-card .card-image-wrapper img[src=""] ~ ::after,
+    .performance-card .card-image-wrapper img[src*="placeholder"] ~ ::after {
+      opacity: 1;
+    }
+
+    .performance-card .card-body {
+      padding: 20px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    .performance-card .card-body h3 {
+      font-size: 1.2rem;
+      margin-bottom: 4px;
+    }
+    .performance-card .card-body .role {
+      color: var(--brand);
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+    .performance-card .card-body .company {
+      color: var(--text-light);
+      font-size: 0.9rem;
+    }
+    .performance-card .card-body .year {
+      display: inline-block;
+      background: var(--brand-light);
+      color: var(--brand-dark);
+      padding: 2px 12px;
+      border-radius: 50px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      margin: 8px 0;
+      align-self: flex-start;
+    }
+    [data-theme="dark"] .performance-card .card-body .year {
+      background: #1e3a4f;
+      color: #8bc3db;
+    }
+    .performance-card .card-body p {
+      font-size: 0.95rem;
+      color: var(--text-light);
+      margin-bottom: 12px;
+      flex: 1;
+    }
+    .performance-card .card-body .artist-mention {
+      background: var(--bg);
+      padding: 8px 12px;
+      border-radius: 8px;
       font-size: 0.85rem;
-      color: #8f9bb3;
-      border-top: 1px solid rgba(255, 255, 255, 0.04);
-      padding-top: 1.8rem;
-      letter-spacing: 0.2px;
+      color: var(--text-light);
+      border-left: 3px solid var(--brand);
+      margin-bottom: 12px;
+    }
+    .performance-card .card-body .artist-mention strong {
+      color: var(--text);
     }
 
-    .footer-note a {
-      color: #b8c7e0;
-      text-decoration: none;
-      border-bottom: 1px dotted rgba(255, 255, 255, 0.15);
-      transition: color 0.2s;
+    /* Card action links */
+    .performance-card .card-body .card-actions {
+      display: flex;
+      gap: 12px;
+      margin-top: 8px;
+      flex-wrap: wrap;
+    }
+    .performance-card .card-body .card-actions a {
+      font-size: 0.85rem;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: color var(--transition);
+    }
+    .performance-card .card-body .card-actions a i {
+      font-size: 0.8rem;
     }
 
-    .footer-note a:hover {
-      color: #ffffff;
-      border-bottom-color: #fbbf24;
+    .performance-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 12px;
+    }
+    .performance-tags span {
+      background: var(--bg);
+      padding: 2px 12px;
+      border-radius: 50px;
+      font-size: 0.7rem;
+      border: 1px solid var(--border);
+      transition: background var(--transition), border var(--transition);
     }
 
-    /* responsive */
-    @media (max-width: 550px) {
-      .main-card {
-        padding: 2rem 1.5rem;
-        border-radius: 2rem;
+    /* ---------- Gallery ---------- */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+    .gallery-grid .gallery-item {
+      border-radius: var(--radius);
+      overflow: hidden;
+      background: var(--bg-alt);
+      border: 1px solid var(--border);
+      transition: all var(--transition);
+      cursor: pointer;
+      line-height: 0;
+    }
+    .gallery-grid .gallery-item:hover {
+      transform: scale(1.02);
+      border-color: var(--brand);
+    }
+    .gallery-grid .gallery-item img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .gallery-grid .gallery-item.placeholder {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-light);
+      font-size: 0.85rem;
+      background: var(--bg-alt);
+      border: 2px dashed var(--border);
+      min-height: 200px;
+      aspect-ratio: 1 / 1;
+    }
+    .gallery-grid .gallery-item.placeholder i {
+      font-size: 2rem;
+      margin-bottom: 8px;
+      display: block;
+      color: var(--brand);
+    }
+
+    /* ---------- Contact ---------- */
+    #contact .contact-info {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px 40px;
+      margin: 20px 0 32px;
+    }
+    #contact .contact-info a {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text);
+      font-weight: 500;
+      transition: color var(--transition);
+    }
+    #contact .contact-info a:hover {
+      color: var(--brand);
+    }
+    #contact .contact-info i {
+      color: var(--brand);
+      width: 20px;
+      font-size: 1.1rem;
+    }
+
+    .contact-form {
+      max-width: 540px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .contact-form input,
+    .contact-form textarea {
+      padding: 12px 16px;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      background: var(--bg-alt);
+      color: var(--text);
+      font-family: inherit;
+      font-size: 0.95rem;
+      transition: border var(--transition), background var(--transition);
+    }
+    .contact-form input:focus,
+    .contact-form textarea:focus {
+      outline: none;
+      border-color: var(--brand);
+      box-shadow: 0 0 0 3px rgba(71, 142, 186, 0.15);
+    }
+    .contact-form textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+    .contact-form .btn-primary {
+      align-self: flex-start;
+    }
+
+    /* ---------- Footer ---------- */
+    footer {
+      background: var(--bg-alt);
+      border-top: 1px solid var(--border);
+      padding: 40px 0 24px;
+      transition: background var(--transition), border var(--transition);
+    }
+    footer .footer-inner {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 16px;
+    }
+    footer .footer-social {
+      display: flex;
+      gap: 20px;
+    }
+    footer .footer-social a {
+      color: var(--text-light);
+      font-size: 1.3rem;
+      transition: color var(--transition);
+    }
+    footer .footer-social a:hover {
+      color: var(--brand);
+    }
+    footer .footer-copy {
+      font-size: 0.85rem;
+      color: var(--text-light);
+    }
+    footer .footer-copy i {
+      color: var(--brand);
+    }
+
+    /* ---------- RESPONSIVE ---------- */
+    @media (max-width: 992px) {
+      .hero-wrapper {
+        grid-template-columns: 1fr;
+        gap: 32px;
       }
-      h1 {
-        font-size: 2.6rem;
+      .hero-content h1 {
+        font-size: 2.8rem;
       }
-      .subhead {
+      .about-wrapper {
+        grid-template-columns: 1fr;
+        gap: 32px;
+      }
+      .gallery-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    @media (max-width: 768px) {
+      body {
+        padding-top: 64px;
+      }
+      header {
+        height: 64px;
+        padding: 0 16px;
+      }
+
+      .logo {
+        font-size: 1rem;
+      }
+
+      .hamburger {
+        display: flex;
+      }
+
+      .nav-links {
+        position: fixed;
+        top: 64px;
+        left: 0;
+        width: 100%;
+        background: var(--bg);
+        flex-direction: column;
+        padding: 24px 20px;
+        gap: 16px;
+        border-bottom: 1px solid var(--border);
+        transform: translateY(-120%);
+        transition: transform 0.3s ease;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+        z-index: 999;
+      }
+      .nav-links.open {
+        transform: translateY(0);
+      }
+      .nav-links a {
+        font-size: 1rem;
+        padding: 8px 0;
+        width: 100%;
+        text-align: center;
+      }
+      .nav-links a::after {
+        display: none;
+      }
+
+      .dark-toggle {
+        width: 34px;
+        height: 34px;
+        font-size: 0.85rem;
+      }
+
+      #hero {
+        padding: 30px 0 50px;
+      }
+      .hero-content h1 {
+        font-size: 2.2rem;
+      }
+      .hero-content .tagline {
         font-size: 1.1rem;
       }
-      .message {
-        font-size: 0.95rem;
-        padding: 0.6rem 1rem;
+
+      .performance-grid {
+        grid-template-columns: 1fr;
       }
-      .eta-item {
-        font-size: 0.8rem;
-        padding: 0.3rem 1rem;
+
+      .gallery-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+      }
+
+      .contact-form .btn-primary {
+        align-self: stretch;
+        text-align: center;
+      }
+
+      .back-link {
+        font-size: 0.95rem;
+        padding: 2px 6px;
       }
     }
 
-    /* 
-      ============================================================
-      FONT REPLACEMENT NOTE:
-      The font is applied via the <link> at the top (Inter).
-      To use a custom font, replace the href with your font URL
-      OR add @font-face in this style block and update the 
-      font-family in body or .main-card.
-      ============================================================
-    */
+    @media (max-width: 480px) {
+      .hero-actions {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      .hero-actions .btn-primary,
+      .hero-actions .btn-outline {
+        text-align: center;
+      }
+      .hero-actions .social-icon {
+        font-size: 1.3rem;
+        margin: 0 8px;
+      }
+      .hero-actions .social-icon:first-of-type {
+        margin-left: 0;
+      }
+
+      .section-title {
+        font-size: 1.6rem;
+      }
+
+      .gallery-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+      }
+    }
+
+    @media (max-width: 360px) {
+      .header-actions {
+        gap: 6px;
+      }
+      .dark-toggle {
+        width: 30px;
+        height: 30px;
+        font-size: 0.75rem;
+      }
+      .gallery-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
   </style>
 </head>
 <body>
-  <!-- Background image container – REPLACE URL in .bg-image -->
-  <div class="bg-image"></div>
-  <div class="bg-overlay"></div>
 
-  <main class="main-card">
-    <!-- status pill -->
-    <div class="status-badge">
-      <span></span> maintenance in progress
+  <!-- ===== HEADER ===== -->
+  <header>
+    <div class="header-left">
+      <!-- Back Link - Change href to your desired URL -->
+      <a href="#" id="backLink" class="back-link" aria-label="Go back">
+        <i class="fas fa-chevron-left"></i>
+      </a>
+      <a href="#hero" class="logo">Foong</a>
     </div>
 
-    <h1>Work in progress</h1>
-    <p class="subhead">We're making things better</p>
+    <nav>
+      <!-- Hamburger Toggle -->
+      <button class="hamburger" id="hamburgerToggle" aria-label="Toggle menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
 
-    <div class="message">
-      ⚡ Under construction · back soon
+      <!-- Nav Links -->
+      <div class="nav-links" id="navLinks">
+        <a href="#about">About</a>
+        <a href="#upcoming-performances">Upcoming</a>
+        <a href="#featured-performances">Featured</a>
+        <a href="#gallery">Gallery</a>
+        <a href="#contact">Contact</a>
+      </div>
+
+      <!-- Header Actions -->
+      <div class="header-actions">
+        <button class="dark-toggle" id="darkToggle" aria-label="Toggle dark mode">
+          <i class="fas fa-moon"></i>
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <!-- ===== HERO ===== -->
+  <section id="hero">
+    <div class="container">
+      <div class="hero-wrapper">
+        <!-- Left: Hero Image -->
+        <div class="hero-image">
+          <!-- 
+            IMAGE PLACEHOLDER INSTRUCTIONS:
+            Replace 'hero-performance.jpg' with your actual image filename.
+            Recommended: A high-quality performance photo (landscape works best).
+            Save your image in: assets/images/hero-performance.jpg
+          -->
+          <img src="_DSC1998.JPG" alt="Yap Siak Foong performing on stage" />
+        </div>
+        <!-- Right: Hero Content -->
+        <div class="hero-content">
+          <h1>Yap Siak Foong</h1>
+          <div class="tagline">Performer · Choral Artist · Storyteller</div>
+          <p class="sub-headline">"Making moments on stage, one note at a time."</p>
+          <div class="hero-actions">
+            <a href="#performances" class="btn-primary">View Performances</a>
+            <a href="#contact" class="btn-outline">Get in Touch</a>
+            <a href="https://www.instagram.com/unfluffyfoong" target="_blank" class="social-icon" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="#" target="_blank" class="social-icon" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+          </div>
+        </div>
+      </div>
     </div>
+  </section>
 
-    <!-- progress bar -->
-    <div class="progress-track">
-      <div class="progress-fill"></div>
+  <!-- ===== ABOUT ===== -->
+  <section id="about">
+    <div class="container">
+      <h2 class="section-title">About <span>Me</span></h2>
+      <div class="about-wrapper">
+        <!-- Left: About Image -->
+        <div class="about-image">
+          <!-- 
+            IMAGE PLACEHOLDER INSTRUCTIONS:
+            Replace 'headshot.jpg' with your actual image filename.
+            Recommended: A professional headshot or candid stage photo.
+            Save your image in: assets/images/headshot.jpg
+          -->
+          <img src="FB5D9D78-17BD-40D5-8C64-B2C6C3C271FF.jpg" alt="Yap Siak Foong headshot" />
+        </div>
+        <!-- Right: About Text -->
+        <div class="about-text">
+          <p>
+            <strong>I am a performer based in Kuala Lumpur, driven by the raw energy of live theatre and choral music.</strong>
+          </p>
+          <p>
+            As a member of the <span class="highlight">Kuala Lumpur Men's Chorus (KLMC)</span>, I've had the privilege of bringing stories to life through music—from intimate ensemble pieces to full-scale musical productions. Whether I'm on stage as a character or blending my voice with the chorus, I believe in the power of performance to move, challenge, and connect.
+          </p>
+          <p>
+            I've performed in multiple productions of <span class="highlight">"Life Is..."</span>, KLMC's signature musical, working alongside talented artists and directors who have shaped my growth as a performer. Every show teaches me something new about vulnerability, presence, and the magic of live connection.
+          </p>
+          <p style="font-style: italic; color: var(--brand);">
+            "From actuarial tables to centre stage."
+          </p>
+        </div>
+      </div>
     </div>
+  </section>
+<!-- ===== UPCOMING PERFORMANCES ===== -->
+  <section id="upcoming-performances">
+    <div class="container">
+      <h2 class="section-title">Upcoming <span>Performances</span></h2>
+      <p class="section-subtitle">Upcoming shows I'll be a part of.</p>
 
-    <!-- eta / status details -->
-    <div class="eta">
-      <span class="eta-item"><strong>ETA</strong> ~ 20 min</span>
-      <span class="eta-item"><strong>stage</strong> polishing</span>
-      <span class="eta-item"><strong>issue</strong> #42</span>
+      <div class="performance-grid">
+
+        <!-- Performance 1 -->
+        <div class="performance-card">
+          <div class="card-image-wrapper">
+            <img src="https://cdn.cloudjoi.com/111057/cover-short-sweet-malaysia-festival-2025-musical.png" alt="Short + Sweet Malaysia Festival 2026: Song" />
+          </div>
+          <div class="card-body">
+            <h3>Short + Sweet Malaysia Festival 2026: Song</h3>
+            <div class="role">Role: Singer</div>
+            <div class="company">Yap Siak Foong</div>
+            <span class="year">2026</span>
+            <p>Performing an original song "Numbers"</p>
+            <div class="card-actions">
+              <a href="https://www.cloudjoi.com/shows/4870-life-is-the-musical-v20" target="_blank">
+                <i class="fas fa-ticket-alt"></i> Tickets on CloudJoi
+              </a>
+            </div>
+            <div class="performance-tags">
+              <span>Singing</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Performance 2 -->
+        <div class="performance-card">
+          <div class="card-image-wrapper">
+            <img src="https://cdn.cloudjoi.com/111057/cover-short-sweet-malaysia-festival-2025-musical.png" alt="Short + Sweet Malaysia Festival 2026: Musical" />
+          </div>
+          <div class="card-body">
+            <h3>Short + Sweet Malaysia Festival 2026: Musical</h3>
+            <div class="role">Role: Director & Actor</div>
+            <div class="company">FluffyFoong</div>
+            <span class="year">2026</span>
+            <p>Performing a short original piece titled "A bug in my head"</p>
+            <div class="card-actions">
+              <a href="https://www.cloudjoi.com/shows/4870-life-is-the-musical-v20" target="_blank">
+                <i class="fas fa-ticket-alt"></i> Tickets on CloudJoi
+              </a>
+            </div>
+            <div class="performance-tags">
+              <span>Musical Theatre</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
     </div>
+  </section>
 
-    <div class="footer-note">
-      <span>🛠️ </span>
-      <span>We'll be back before you know it. </span>
-      <span>— </span>
-      <a href="#" onclick="event.preventDefault(); alert('Still WIP — but thanks for checking!');">check status</a>
-      <span> · </span>
-      <a href="#" onclick="event.preventDefault(); alert('No ETA changes yet, stay tuned.');">notify me</a>
+
+  <!-- ===== FEATURED PERFORMANCES ===== -->
+  <section id="featured-performances">
+    <div class="container">
+      <h2 class="section-title">Featured <span>Performances</span></h2>
+      <p class="section-subtitle">A selection of shows I've been proud to be part of.</p>
+
+      <div class="performance-grid">
+
+        <!-- LIFE IS... V2.0 -->
+        <div class="performance-card">
+          <div class="card-image-wrapper">
+            <!-- 
+              IMAGE PLACEHOLDER INSTRUCTIONS:
+              Replace 'life-is-2026.jpg' with your actual image filename.
+              Your image will display at its natural size - no cropping!
+              Save your image in: assets/images/life-is-2026.jpg
+            -->
+            <img src="https://cdn.cloudjoi.com/116685/cover-4870-life-is-the-musical-v20.jpg" alt="LIFE IS.. V2.0" />
+          </div>
+          <div class="card-body">
+            <h3>LIFE IS.. V2.0</h3>
+            <div class="role">Role: Dog & Ensemble</div>
+            <div class="company">KLMC · Kuala Lumpur Men's Chorus</div>
+            <span class="year">2026</span>
+            <p>The triumphant return of KLMC's signature musical, featuring an expanded cast and new arrangements.</p>
+            <div class="artist-mention">
+              <strong>🎭 Featured Artists:</strong> Worked alongside Mae Elliessa, Clinton Jerome Chua, and Brian Chan.
+            </div>
+            <div class="card-actions">
+              <a href="https://www.cloudjoi.com/shows/4870-life-is-the-musical-v20" target="_blank">
+                <i class="fas fa-ticket-alt"></i> View on CloudJoi
+              </a>
+            </div>
+            <div class="performance-tags">
+              <span>Choral</span>
+              <span>Musical Theatre</span>
+              <span>KLMC</span>
+              <span>Featured Artists</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Life Is... -->
+        <div class="performance-card">
+          <div class="card-image-wrapper">
+            <!-- 
+              IMAGE PLACEHOLDER INSTRUCTIONS:
+              Replace 'life-is-2024.jpg' with your actual image filename.
+              Your image will display at its natural size - no cropping!
+              Save your image in: assets/images/life-is-2024.jpg
+            -->
+            <img src="https://cdn.cloudjoi.com/87269/1.-A4-Portrait.jpg" alt="Life Is..." />
+          </div>
+          <div class="card-body">
+            <h3>Life Is...</h3>
+            <div class="role">Role: Dog & Ensemble</div>
+            <div class="company">KLMC · Kuala Lumpur Men's Chorus</div>
+            <span class="year">2024</span>
+            <p>An all-men's choir musical exploring the highs and lows of the human experience through song and movement. A raw, emotional journey that pushed me to find vulnerability on stage.</p>
+            <div class="card-actions">
+              <a href="https://www.cloudjoi.com/shows/life-is-2024" target="_blank">
+                <i class="fas fa-ticket-alt"></i> View on CloudJoi
+              </a>
+            </div>
+            <div class="performance-tags">
+              <span>Choral</span>
+              <span>Musical Theatre</span>
+              <span>KLMC</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Performance 3: Placeholder -->
+        <div class="performance-card">
+          <div class="card-image-wrapper">
+            <!-- 
+              IMAGE PLACEHOLDER INSTRUCTIONS:
+              Replace 'placeholder-show-1.jpg' with your actual image filename.
+              Your image will display at its natural size - no cropping!
+              Save your image in: assets/images/placeholder-show-1.jpg
+            -->
+            <img src="assets/images/placeholder-show-1.jpg" alt="Placeholder Show 1" />
+          </div>
+          <div class="card-body">
+            <h3>[Show Title]</h3>
+            <div class="role">Role: [Your Role]</div>
+            <div class="company">[Company / Venue]</div>
+            <span class="year">[Year]</span>
+            <p>[Brief description of the show, your experience, and what made it special.]</p>
+            <div class="performance-tags">
+              <span>Tag 1</span>
+              <span>Tag 2</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Performance 4: Placeholder -->
+        <div class="performance-card">
+          <div class="card-image-wrapper">
+            <!-- 
+              IMAGE PLACEHOLDER INSTRUCTIONS:
+              Replace 'placeholder-show-2.jpg' with your actual image filename.
+              Your image will display at its natural size - no cropping!
+              Save your image in: assets/images/placeholder-show-2.jpg
+            -->
+            <img src="assets/images/placeholder-show-2.jpg" alt="Placeholder Show 2" />
+          </div>
+          <div class="card-body">
+            <h3>[Show Title]</h3>
+            <div class="role">Role: [Your Role]</div>
+            <div class="company">[Company / Venue]</div>
+            <span class="year">[Year]</span>
+            <p>[Brief description of the show, your experience, and what made it special.]</p>
+            <div class="performance-tags">
+              <span>Tag 1</span>
+              <span>Tag 2</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
     </div>
+  </section>
 
-    <!-- 
-      ============================================================
-      FONT REPLACEMENT – additional info:
-      The current font is 'Inter' from Google Fonts.
-      To replace:
-      1) Change the <link> href to your font (or add @font-face).
-      2) Update the font-family in the body rule (or .main-card).
-      Example: font-family: 'YourFont', sans-serif;
-      ============================================================
-    -->
-  </main>
+  <!-- ===== GALLERY ===== -->
+  <section id="gallery">
+    <div class="container">
+      <h2 class="section-title">Gallery</h2>
+      <p class="section-subtitle">Moments from rehearsals, performances, and everything in between.</p>
+
+      <div class="gallery-grid">
+        <!-- 
+          IMAGE PLACEHOLDER INSTRUCTIONS:
+          Replace each 'gallery-1.jpg' through 'gallery-6.jpg' with your actual images.
+          Images will display at their natural size—no cropping!
+          Save your images in: assets/images/gallery-1.jpg, gallery-2.jpg, etc.
+        -->
+        <div class="gallery-item">
+          <img src="assets/images/gallery-1.jpg" alt="Gallery image 1" />
+        </div>
+        <div class="gallery-item">
+          <img src="assets/images/gallery-2.jpg" alt="Gallery image 2" />
+        </div>
+        <div class="gallery-item">
+          <img src="assets/images/gallery-3.jpg" alt="Gallery image 3" />
+        </div>
+        <div class="gallery-item">
+          <img src="assets/images/gallery-4.jpg" alt="Gallery image 4" />
+        </div>
+        <div class="gallery-item">
+          <img src="assets/images/gallery-5.jpg" alt="Gallery image 5" />
+        </div>
+        <div class="gallery-item">
+          <img src="assets/images/gallery-6.jpg" alt="Gallery image 6" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CONTACT ===== -->
+  <section id="contact">
+    <div class="container">
+      <h2 class="section-title">Let's <span>Connect</span></h2>
+      <p class="section-subtitle">
+        Open to performance opportunities, collaborations, and new creative challenges.
+      </p>
+
+      <div class="contact-info">
+        <a href="mailto:yapsiakfoong@gmail.com"><i class="fas fa-envelope"></i> yapsiakfoong@gmail.com</a>
+        <a href="#" target="_blank"><i class="fab fa-instagram"></i> Instagram</a>
+        <a href="#" target="_blank"><i class="fab fa-youtube"></i> YouTube</a>
+        <a href="#" target="_blank"><i class="fab fa-tiktok"></i> TikTok</a>
+      </div>
+
+      <form class="contact-form" action="#" method="POST">
+        <input type="text" name="name" placeholder="Your Name" required />
+        <input type="email" name="email" placeholder="Your Email" required />
+        <textarea name="message" placeholder="Tell me about your project or opportunity..."></textarea>
+        <button type="submit" class="btn-primary"><i class="fas fa-paper-plane"></i> Send Message</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer>
+    <div class="container">
+      <div class="footer-inner">
+
+        <div class="footer-social">
+          <a href="#" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+          <a href="#" target="_blank" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+          <a href="#" target="_blank" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+          <a href="mailto:yapsiakfoong@gmail.com" aria-label="Email"><i class="fas fa-envelope"></i></a>
+        </div>
+
+        <p class="footer-copy">
+          &copy; 2026 Yap Siak Foong · Built with <i class="fas fa-heart"></i> on GitHub Pages
+        </p>
+        <a href="#hero" style="font-size: 0.85rem; color: var(--text-light);">
+          <i class="fas fa-arrow-up"></i> Back to top
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ===== JAVASCRIPT ===== -->
+  <script>
+    (function() {
+      'use strict';
+
+      // ---------- Dark Mode Toggle ----------
+      const darkToggle = document.getElementById('darkToggle');
+      const currentTheme = localStorage.getItem('theme') || 'light';
+      if (currentTheme === 'dark') {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        darkToggle.innerHTML = '<i class="fas fa-sun"></i>';
+      }
+
+      darkToggle.addEventListener('click', function() {
+        const theme = document.documentElement.getAttribute('data-theme');
+        if (theme === 'dark') {
+          document.documentElement.removeAttribute('data-theme');
+          localStorage.setItem('theme', 'light');
+          darkToggle.innerHTML = '<i class="fas fa-moon"></i>';
+        } else {
+          document.documentElement.setAttribute('data-theme', 'dark');
+          localStorage.setItem('theme', 'dark');
+          darkToggle.innerHTML = '<i class="fas fa-sun"></i>';
+        }
+      });
+
+      // ---------- Mobile Hamburger Menu ----------
+      const hamburger = document.getElementById('hamburgerToggle');
+      const navLinks = document.getElementById('navLinks');
+
+      hamburger.addEventListener('click', function() {
+        this.classList.toggle('active');
+        navLinks.classList.toggle('open');
+      });
+
+      document.querySelectorAll('.nav-links a').forEach(link => {
+        link.addEventListener('click', function() {
+          hamburger.classList.remove('active');
+          navLinks.classList.remove('open');
+        });
+      });
+
+      document.addEventListener('click', function(e) {
+        if (!e.target.closest('nav') && navLinks.classList.contains('open')) {
+          hamburger.classList.remove('active');
+          navLinks.classList.remove('open');
+        }
+      });
+
+      // ---------- Back Link Customization ----------
+      const backLink = document.getElementById('backLink');
+      // Change this to your desired URL
+      // Example: backLink.href = 'https://yourwebsite.com';
+      // Or: backLink.href = '/index.html';
+
+    })();
+  </script>
+
 </body>
 </html>
