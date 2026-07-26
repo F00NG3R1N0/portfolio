@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -22,7 +22,7 @@
       --transition: 0.3s ease;
     }
 
-    /* Dark Mode Variables */
+    /* Dark Mode Variables - Applied by default via data-theme="dark" on html */
     [data-theme="dark"] {
       --bg: #0f172a;
       --bg-alt: #1e293b;
@@ -334,7 +334,7 @@
       font-size: 1.5rem;
       color: var(--text-light);
       transition: color var(--transition);
-      margin-left: 4px;
+      margin: 0 8px;
     }
     .hero-actions .social-icon:hover {
       color: var(--brand);
@@ -955,7 +955,7 @@
       <!-- Header Actions -->
       <div class="header-actions">
         <button class="dark-toggle" id="darkToggle" aria-label="Toggle dark mode">
-          <i class="fas fa-moon"></i>
+          <i class="fas fa-sun"></i>
         </button>
       </div>
     </nav>
@@ -972,13 +972,15 @@
         <!-- Right: Hero Content -->
         <div class="hero-content">
           <h1>Yap Siak Foong</h1>
-          <div class="tagline">Performer · Choral Artist · Storyteller</div>
+          <div class="tagline">Actor · Singer · Storyteller</div>
           <p class="sub-headline">"Making moments on stage, one note at a time."</p>
           <div class="hero-actions">
             <a href="#upcoming-performances" class="btn-primary">View Up. Performances</a>
             <a href="#contact" class="btn-outline">Get in Touch</a>
-            <a href="https://www.instagram.com/unfluffyfoong" target="_blank" class="social-icon" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-            <a href="https://www.youtube.com/@fluffyfoong" target="_blank" class="social-icon" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+            <div style="text-align: center;">
+                <a href="https://www.instagram.com/unfluffyfoong" target="_blank" class="social-icon" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                <a href="https://www.youtube.com/@fluffyfoong" target="_blank" class="social-icon" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+            </div>
           </div>
         </div>
       </div>
@@ -1286,10 +1288,18 @@
 
       // ---------- Dark Mode Toggle ----------
       const darkToggle = document.getElementById('darkToggle');
-      const currentTheme = localStorage.getItem('theme') || 'light';
+      
+      // Check for saved theme, default to 'dark' if no preference saved
+      const savedTheme = localStorage.getItem('theme');
+      let currentTheme = savedTheme || 'dark';
+      
+      // Apply the theme
       if (currentTheme === 'dark') {
         document.documentElement.setAttribute('data-theme', 'dark');
         darkToggle.innerHTML = '<i class="fas fa-sun"></i>';
+      } else {
+        document.documentElement.removeAttribute('data-theme');
+        darkToggle.innerHTML = '<i class="fas fa-moon"></i>';
       }
 
       darkToggle.addEventListener('click', function() {
