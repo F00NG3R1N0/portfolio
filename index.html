@@ -1,51 +1,541 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>My Portfolio</title>
-    <link rel="stylesheet" href="/portfolio/css/style-main.css" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>My Portfolio</title>
+  <!-- Google Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300..700&display=swap" rel="stylesheet" />
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+  <style>
+    /* ============================================
+       CONSTANTS
+       ============================================ */
+    :root {
+      /* Colors */
+      --color-primary: #003c62;
+      --color-secondary: #003d66;
+      --color-accent: #478eba;
+      --color-white: #ffffff;
+      --color-hover-overlay: rgba(0, 0, 0, 0.5);
+      --color-gold-accent: #d4a843;
+
+      /* Typography */
+      --font-family: "Futura", 'Segoe UI', system-ui, -apple-system, sans-serif;
+      --font-size-name: 32px;
+      --font-size-name-lh: 1.25;
+      --font-size-portfolio: 15px;
+      --font-size-portfolio-lh: 1.75;
+      --font-size-side-title: 40px;
+      --font-size-side-text: 15px;
+
+      /* Spacing */
+      --spacing-header: 20px;
+      --spacing-side: 20px;
+
+      /* Transitions */
+      --transition-smooth: 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      --transition-image: 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      --transition-bounce: 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    /* ============================================
+       RESET & BASE - NO SCROLLING
+       ============================================ */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      height: 100%;
+      overflow: hidden;
+    }
+
+    body {
+      font-family: 'Futura', 'Century Gothic', 'Apple Gothic', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: var(--color-primary);
+      color: var(--color-white);
+      height: 100dvh;
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ============================================
+       HEADER - FIXED HEIGHT
+       ============================================ */
+    .header {
+      text-align: center;
+      padding: var(--spacing-header);
+      background: var(--color-white);
+      position: relative;
+      z-index: 10;
+      flex-shrink: 0;
+    }
+
+    .name {
+      font-family: 'Futura', 'Century Gothic', 'Apple Gothic', sans-serif;
+      font-size: var(--font-size-name);
+      line-height: var(--font-size-name-lh);
+      font-weight: 500;
+      letter-spacing: 2px;
+      background: var(--color-primary);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .title {
+      font-family: 'Futura', 'Century Gothic', 'Apple Gothic', sans-serif;
+      font-size: var(--font-size-portfolio);
+      line-height: var(--font-size-portfolio-lh);
+      color: var(--color-secondary);
+      opacity: 0.8;
+      letter-spacing: 5px;
+      text-transform: uppercase;
+      padding-top: 5px;
+    }
+
+    /* ============================================
+       SPLIT CONTAINER - FILLS REMAINING SPACE
+       ============================================ */
+    .split-container {
+      display: flex;
+      flex: 1;
+      min-height: 0;
+      width: 100%;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* ============================================
+       SPLIT SIDES - BASE STYLES
+       ============================================ */
+    .split-left,
+    .split-right {
+      flex: 1;
+      position: relative;
+      overflow: hidden;
+      transition: flex var(--transition-smooth);
+      cursor: pointer;
+      text-decoration: none;
+    }
+
+    /* ============================================
+       IMAGE WRAPPER
+       ============================================ */
+    .image-wrapper {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+    }
+
+    /* ============================================
+       IMAGES - BASE
+       ============================================ */
+    .split-image {
+      position: absolute;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform var(--transition-image), filter var(--transition-smooth);
+    }
+
+    .split-left .split-image {
+      left: 0;
+      object-position: center;
+    }
+
+    .split-right .split-image {
+      right: 0;
+      object-position: center;
+    }
+
+    /* ============================================
+       HOVER OVERLAY
+       ============================================ */
+    .hover-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: var(--color-hover-overlay);
+      opacity: 0;
+      transition: opacity var(--transition-smooth);
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    /* ============================================
+       CONTENT OVERLAY - ALL FUTURA
+       ============================================ */
+    .split-content {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 2;
+      padding: var(--spacing-side);
+      width: 80%;
+      pointer-events: none;
+      transition: transform var(--transition-smooth), color var(--transition-smooth);
+    }
+
+    .split-left .split-content {
+      text-align: left;
+    }
+
+    .split-right .split-content {
+      text-align: right;
+    }
+
+    .split-content h2 {
+      font-family: 'Futura', 'Century Gothic', 'Apple Gothic', sans-serif;
+      font-size: var(--font-size-side-title);
+      font-weight: 300;
+      color: var(--color-white);
+      margin-bottom: 0.5rem;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 1);
+      transition: color var(--transition-smooth);
+      letter-spacing: 1px;
+    }
+
+    .split-content p {
+      font-family: 'Futura', 'Century Gothic', 'Apple Gothic', sans-serif;
+      font-size: var(--font-size-side-text);
+      color: var(--color-white);
+      opacity: 0.9;
+      text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+      transition: opacity var(--transition-smooth);
+      letter-spacing: 0.5px;
+    }
+
+    /* ============================================
+       ANIMATED VIEW LINK
+       ============================================ */
+    .split-content view {
+      font-family: 'Futura', 'Century Gothic', 'Apple Gothic', sans-serif;
+      font-size: var(--font-size-side-text);
+      color: var(--color-gold-accent);
+      opacity: 0.85;
+      text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+      letter-spacing: 0.5px;
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      cursor: pointer;
+      position: relative;
+      padding-bottom: 4px;
+      transition: transform var(--transition-bounce), opacity 0.4s ease;
+    }
+
+    /* Underline animation - grows from left to right */
+    .split-content view::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--color-gold-accent);
+      transition: width var(--transition-smooth);
+    }
+
+    /* Arrow - rotated -45deg */
+    .split-content view i {
+      transition: transform 0.4s ease;
+      font-size: 1rem;
+      display: inline-block;
+      transform: rotate(-45deg);
+    }
+
+    /* ---------- LEFT SIDE: Entire block slides RIGHT ---------- */
+    .split-left:hover .split-content view {
+      opacity: 1;
+      transform: translateX(12px);
+    }
+
+    .split-left:hover .split-content view::after {
+      width: 100%;
+    }
+
+    .split-left:hover .split-content view i {
+      transform: rotate(-45deg);
+    }
+
+    /* ---------- RIGHT SIDE: Entire block slides LEFT ---------- */
+    .split-right:hover .split-content view {
+      opacity: 1;
+      transform: translateX(-12px);
+    }
+
+    .split-right:hover .split-content view::after {
+      width: 100%;
+    }
+
+    .split-right:hover .split-content view i {
+      transform: rotate(-45deg);
+    }
+
+    /* ============================================
+       HOVER EFFECTS - LEFT SIDE
+       ============================================ */
+    .split-left:hover {
+      flex: 1.24;
+    }
+
+    .split-left:hover .split-image {
+      transform: scale(1.15) translateX(5%);
+    }
+
+    .split-left:hover .hover-overlay {
+      opacity: 1;
+    }
+
+    .split-left:hover .split-content {
+      transform: translate(-50%, -50%) scale(1.05);
+    }
+
+    .split-left:hover .split-content h2 {
+      color: var(--color-accent);
+    }
+
+    .split-left:hover .split-content p {
+      opacity: 1;
+    }
+
+    /* ============================================
+       HOVER EFFECTS - RIGHT SIDE
+       ============================================ */
+    .split-right:hover {
+      flex: 1.24;
+    }
+
+    .split-right:hover .split-image {
+      transform: scale(1.25) translateY(10%);
+    }
+
+    .split-right:hover .hover-overlay {
+      opacity: 1;
+    }
+
+    .split-right:hover .split-content {
+      transform: translate(-50%, -50%) scale(1.05);
+    }
+
+    .split-right:hover .split-content h2 {
+      color: var(--color-accent);
+    }
+
+    .split-right:hover .split-content p {
+      opacity: 1;
+    }
+
+    /* ============================================
+       RESPONSIVE - TABLET AND MOBILE
+       ============================================ */
+    @media (max-width: 768px) {
+      :root {
+        --font-size-name: 24px;
+        --font-size-side-title: 28px;
+        --font-size-side-text: 13px;
+        --spacing-header: 15px;
+      }
+
+      .split-container {
+        flex-direction: column;
+      }
+
+      .split-left,
+      .split-right {
+        flex: 1;
+        min-height: 0;
+        width: 100%;
+        overflow: hidden;
+      }
+
+      .split-left .split-content {
+        text-align: left;
+      }
+
+      .split-right .split-content {
+        text-align: right;
+      }
+
+      .split-left:hover,
+      .split-right:hover {
+        flex: 1;
+      }
+
+      .split-left:hover .split-image,
+      .split-right:hover .split-image {
+        transform: none;
+      }
+
+      .split-left:hover .split-content,
+      .split-right:hover .split-content {
+        transform: translate(-50%, -50%) scale(1);
+      }
+
+      /* Disable animations on mobile hover */
+      .split-left:hover .split-content view {
+        transform: none;
+      }
+
+      .split-right:hover .split-content view {
+        transform: none;
+      }
+
+      .split-left:hover .split-content view::after,
+      .split-right:hover .split-content view::after {
+        width: 0;
+      }
+
+      /* Active state for mobile tap */
+      .split-left:active .split-image,
+      .split-right:active .split-image {
+        transform: scale(1.05);
+      }
+
+      .split-left:active .split-content,
+      .split-right:active .split-content {
+        transform: translate(-50%, -50%) scale(1.02);
+      }
+
+      .split-left:active .hover-overlay,
+      .split-right:active .hover-overlay {
+        opacity: 1;
+      }
+
+      /* Active state for view link on mobile */
+      .split-left:active .split-content view {
+        transform: translateX(8px);
+      }
+
+      .split-right:active .split-content view {
+        transform: translateX(-8px);
+      }
+
+      .split-left:active .split-content view::after,
+      .split-right:active .split-content view::after {
+        width: 100%;
+      }
+    }
+
+    @media (max-width: 480px) {
+      :root {
+        --font-size-name: 20px;
+        --font-size-side-title: 22px;
+        --font-size-side-text: 12px;
+        --spacing-header: 12px;
+      }
+
+      .split-content {
+        width: 85%;
+        padding: 15px;
+      }
+
+      .split-left .split-content {
+        text-align: left;
+      }
+
+      .split-right .split-content {
+        text-align: right;
+      }
+
+      .split-content h2 {
+        font-size: var(--font-size-side-title);
+      }
+
+      .split-content p {
+        font-size: var(--font-size-side-text);
+      }
+
+      .split-content view {
+        font-size: var(--font-size-side-text);
+      }
+    }
+
+    @media (max-height: 600px) and (max-width: 480px) {
+      :root {
+        --font-size-side-title: 18px;
+        --font-size-side-text: 11px;
+      }
+
+      .split-content h2 {
+        font-size: var(--font-size-side-title);
+      }
+
+      .split-content p {
+        font-size: var(--font-size-side-text);
+      }
+
+      .split-content view {
+        font-size: var(--font-size-side-text);
+      }
+    }
+
+    @media (max-height: 500px) and (orientation: landscape) {
+      .split-container {
+        flex-direction: row;
+      }
+
+      .split-left,
+      .split-right {
+        flex: 1;
+      }
+    }
+  </style>
 </head>
 <body>
-    <!-- ============================================
-         HEADER
-         ============================================ -->
-    <header class="header">
-        <h1 class="name">Yap Siak Foong</h1>
-        <p class="title">Portfolio</p>
-    </header>
+  <!-- ============================================
+       HEADER
+       ============================================ -->
+  <header class="header">
+    <h1 class="name">Yap Siak Foong</h1>
+    <p class="title">Portfolio</p>
+  </header>
 
-    <!-- ============================================
-         SPLIT SCREEN
-         ============================================ -->
-    <div class="split-container">
-        <!-- Left Side -->
-        
-        <a href="/portfolio/curricullum-vitae/" class="split-left">
-            <div class="split-content">
-                <h2>Software Developer</h2>
-                <p>Combining both knowledge in data and marketing</br>bringing a balanced approach.</p>
-                <view>View work &#8599</view>
-            </div>
-            <div class="image-wrapper">
-                <img src="https://picsum.photos/1200/800?random=1" alt="Design" class="split-image" />
-            </div>
-            <div class="hover-overlay"></div>
-        </a>
+  <!-- ============================================
+       SPLIT SCREEN
+       ============================================ -->
+  <div class="split-container">
+    <!-- Left Side -->
+    <a href="/cv/" class="split-left" target="_blank">
+      <div class="split-content">
+        <h2>Developer</h2>
+        <p>Problems to solutions,<br />deep diving into what work.</p>
+        <view>View work <i class="fas fa-long-arrow-right"></i></view>
+      </div>
+      <div class="image-wrapper">
+        <img src="https://picsum.photos/1200/800?random=1" alt="Design" class="split-image" />
+      </div>
+      <div class="hover-overlay"></div>
+    </a>
 
-        <!-- Right Side -->
-        <a href="/portfolio/artist-profile/" class="split-right">
-            <div class="split-content">
-                <h2>Artist Profile</h2>
-                <p>Aspiring singer and actor.</p>
-                <view>View work &#8599</view>
-            </div>
-            
-            <div class="image-wrapper">
-                <img src="images/main-artist-profile.png" alt="Design" class="split-image" />
-            </div>
-            <div class="hover-overlay"></div>
-        </a>
-    </div>
+    <!-- Right Side -->
+    <a href="portfolio/artist-profile/" class="split-right" target="_blank">
+      <div class="split-content">
+        <h2>Artist Profile</h2>
+        <p>Passion for the stage and the limelights.</p>
+        <view>View work <i class="fas fa-long-arrow-right"></i></view>
+      </div>
+      <div class="image-wrapper">
+        <img src="main-artist-profile.png" alt="Design" class="split-image" />
+      </div>
+      <div class="hover-overlay"></div>
+    </a>
+  </div>
 </body>
 </html>
