@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Yap Siak Foong · CV</title>
+  <title>Foong · Software Dev</title>
   <!-- Font Awesome for Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
   <style>
@@ -311,7 +311,7 @@
       border-bottom: 1px solid var(--border);
     }
     #hero h1 {
-        font-family: 'Futura';
+      font-family: 'Futura';
       font-size: 3.2rem;
       font-weight: 800;
       letter-spacing: -1px;
@@ -344,7 +344,7 @@
       font-size: 1.5rem;
       color: var(--text-light);
       transition: color var(--transition);
-      margin-left: 4px;
+      margin: 0 8px;
     }
     .hero-actions .social-icon:hover {
       color: var(--brand);
@@ -940,7 +940,7 @@
       <a href="https://f00ng3r1n0.github.io/portfolio/" class="back-link" aria-label="Go back">
         <i class="fas fa-chevron-left"></i>
       </a>
-      <a href="#" class="logo">Yap Siak Foong</a>
+      <a href="#" class="logo">Foong</a>
     </div>
 
     <nav>
@@ -1005,8 +1005,10 @@
       <div class="hero-actions">
         <a href="#projects" class="btn-primary">View My Projects</a>
         <a href="#" class="btn-outline" download><i class="fas fa-file-pdf"></i> Download Resume</a>
-        <a href="https://github.com/yapsiakfoong" target="_blank" class="social-icon" aria-label="GitHub"><i class="fab fa-github"></i></a>
-        <a href="https://linkedin.com/in/yapsiakfoong" target="_blank" class="social-icon" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+        <div style="text-align: center;">
+          <a href="https://github.com/F00NG3R1N0" target="_blank" class="social-icon" aria-label="GitHub"><i class="fab fa-github"></i></a>
+          <a href="https://linkedin.com/in/yapsiakfoong" target="_blank" class="social-icon" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+        </div>
       </div>
     </div>
   </section>
@@ -1118,12 +1120,16 @@
             <li><strong>Built a component-based HTML email template system</strong> using modular CSS and semantic HTML, cutting email rendering bugs by 85% and improving cross-client compatibility (Outlook, Gmail, Apple Mail).</li>
             <li><strong>Led technical onboarding and mentorship</strong> for 5 junior team members in Marketo, HTML/CSS, and operational best practices, resulting in a 40% faster ramp-up time for new hires.</li>
             <li><strong>Architected a structured knowledge handover framework</strong> that reduced operational knowledge loss by 60% during team transitions.</li>
-            <li><strong>Integrated Marketo with Salesforce via REST API</strong> to synchronize lead data in real-time, eliminating manual CSV uploads and reducing data discrepancies by 95%.</li>
-            <li><strong>Developed a python script</strong> to make HubSpot historical data more readable and accessible.</li>
+            <li><strong>Automated manual steps</strong> that reduced operational work by 50%, increasing efficiency.</li>
+            <li><strong>Developed a Python script</strong> to make HubSpot historical data more readable and accessible for auditing.</li>
           </ul>
           <div class="tech-tags">
-            <span>Marketo</span><span>Salesforce</span><span>Python</span>
-            <span>HTML/CSS</span><span>JavaScript</span><span>REST APIs</span>
+            <span>Marketo</span>
+            <span>HubSpot</span>
+            <span>Salesforce</span>
+            <span>Python</span>
+            <span>HTML/CSS</span>
+            <span>MarTech</span>
           </div>
         </div>
 
@@ -1135,14 +1141,16 @@
           </div>
           <ul>
             <li><strong>Led Root Cause Analysis (RCA) as the designated RCA Lead</strong> for quality escapes, presenting data-driven findings to stakeholders and implementing both short-term fixes and long-term process improvements that reduced recurring errors by 50%.</li>
-            <li><strong>Managed a high-stakes Cleanup Project</strong> as the New Zealand Reference Data SPOC, overseeing data validation for a major MNC client and ensuring 99.7% data accuracy across 50,000+ product records.</li>
+            <li><strong>Managed a high-stakes Cleanup Project</strong> as the New Zealand Reference Data SPOC, overseeing data validation for a major MNC client and ensuring 99.7% data accuracy across 1,000+ product records.</li>
             <li><strong>Automated data validation routines using Python and SQL</strong> to replace manual Excel-based checks, cutting quality review time from 8 hours to 90 minutes per weekly cycle.</li>
             <li><strong>Collaborated with cross-functional teams</strong> across Malaysia, India, and even Europe to standardize data entry guidelines, improving inter-team alignment and reducing rework by 35%.</li>
             <li><strong>Acted as Fun Ambassador</strong> organizing office-wide events for 200+ employees—demonstrating leadership, communication, and project management outside of technical duties.</li>
           </ul>
           <div class="tech-tags">
-            <span>SQL</span><span>Python</span><span>Excel VBA</span>
-            <span>Data Validation</span><span>RCA</span><span>JIRA</span>
+            <span>Python</span>
+            <span>Excel VBA</span>
+            <span>Data Validation</span>
+            <span>RCA</span>
           </div>
         </div>
 
@@ -1161,12 +1169,12 @@
         <!-- Project 1 -->
         <div class="project-card">
           <h3>HubSpot Property History</h3>
-          <p>A React dashboard that visualizes campaign performance via the Marketo REST API. Built to give marketers real-time insights without leaving their workflow.</p>
+          <p>Developed a Python script that processes a HubSpot property history CSV extract, transforming it to be readable and accessible for auditing. The script outputs a clean CSV with historical changes, timestamps, to assist with user actions.</p>
           <div class="project-tech">
-            <span>React</span><span>Chart.js</span><span>Marketo API</span><span>Netlify</span>
+            <span>Python</span>
+            <span>HubSpot</span>
           </div>
           <div class="project-links">
-            <a href="#"><i class="fas fa-external-link-alt"></i> Live Demo</a>
             <a href="#"><i class="fab fa-github"></i> Source</a>
           </div>
         </div>
@@ -1187,12 +1195,14 @@
         <!-- Project 3 -->
         <div class="project-card">
           <h3>Discord Bot for managing server permissions</h3>
-          <p>A web-based SQL editor allowing users to run queries on a mock dataset. Great for practicing joins, aggregations, and subqueries.</p>
+          <p>A Javascript-based Discord bot that automates role assignments and permission management, improving server organization and user experience. The idea was to cater to users who would want to receive notifications of specific channels.</p>
           <div class="project-tech">
-            <span>React</span><span>SQLite (WASM)</span><span>Monaco Editor</span>
+            <span>Javascript</span>
+            <span>Heroku</span>
+            <span>GitHub</span>
           </div>
           <div class="project-links">
-            <a href="#"><i class="fas fa-external-link-alt"></i> Live Demo</a>
+            <!-- <a href="#"><i class="fas fa-external-link-alt"></i> Live Demo</a> -->
             <a href="#"><i class="fab fa-github"></i> Source</a>
           </div>
         </div>
@@ -1213,7 +1223,7 @@
         <a href="mailto:yapsiakfoong@gmail.com"><i class="fas fa-envelope"></i> yapsiakfoong@gmail.com</a>
         <a href="https://wa.me/+60126338803"><i class="fab fa-whatsapp"></i> +60 12-633 8803</a>
         <a href="https://linkedin.com/in/yapsiakfoong" target="_blank"><i class="fab fa-linkedin-in"></i> LinkedIn</a>
-        <a href="https://github.com/yapsiakfoong" target="_blank"><i class="fab fa-github"></i> GitHub</a>
+        <a href="https://github.com/F00NG3R1N0" target="_blank"><i class="fab fa-github"></i> GitHub</a>
       </div>
     </div>
   </section>
