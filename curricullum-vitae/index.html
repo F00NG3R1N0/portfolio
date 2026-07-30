@@ -936,7 +936,7 @@
   <!-- ===== HEADER ===== -->
   <header>
     <div class="header-left">
-      <!-- Back Link - Change href to your desired URL -->
+      <!-- Back Link -->
       <a href="https://f00ng3r1n0.github.io/portfolio/" class="back-link" aria-label="Go back">
         <i class="fas fa-chevron-left"></i>
       </a>
@@ -944,14 +944,12 @@
     </div>
 
     <nav>
-      <!-- Hamburger Toggle -->
       <button class="hamburger" id="hamburgerToggle" aria-label="Toggle menu">
         <span></span>
         <span></span>
         <span></span>
       </button>
 
-      <!-- Nav Links -->
       <div class="nav-links" id="navLinks">
         <a href="#about">About</a>
         <a href="#experience">Experience</a>
@@ -959,7 +957,6 @@
         <a href="#contact">Contact</a>
       </div>
 
-      <!-- Header Actions -->
       <div class="header-actions">
         <a href="https://drive.google.com/file/d/1HqTZV9OE8yIT_WXcAlx5ebwPCwC0taEr/view?usp=sharing" class="btn-resume" download><i class="fas fa-file-pdf"></i> <span>Resume</span></a>
         <button class="terminal-trigger" id="terminalTrigger" aria-label="Open Terminal">&lt;/&gt;</button>
@@ -996,7 +993,7 @@
   <section id="hero">
     <div class="container">
       <h1>Yap Siak Foong</h1>
-      <div class="tagline" id="rotatingTagline">Building scalable automation pipelines</div>
+      <div class="tagline" id="rotatingTagline">Automation with Python &amp; JS</div>
       <p class="sub-headline">
         Marketing Operations turned Software Engineer &middot;
         <span class="highlight">Actuarial Science background</span> &middot;
@@ -1018,7 +1015,6 @@
     <div class="container">
       <h2 class="section-title">About <span>Me</span></h2>
       <div class="about-skills-grid">
-        <!-- Left: About Text -->
         <div class="about-text">
           <p>
             <strong>I started my career optimizing marketing operations with Marketo and HubSpot, but I kept hitting the limits of no-code tools. So I learned to code. Now I build the tools that marketers wish they had.</strong>
@@ -1041,7 +1037,7 @@
             </div>
           </div>
         </div>
-        <!-- Right: Skills Tag Cloud -->
+
         <div class="skills-cloud">
           <div class="skills-group">
             <h4>Languages</h4>
@@ -1189,8 +1185,8 @@
 
         <!-- Project 2 -->
         <div class="project-card">
-          <h3>HubSpot Property History</h3>
-          <p>Developed a Python script that processes a HubSpot property history CSV extract, transforming it to be readable and accessible for auditing. The script outputs a clean CSV with historical changes, timestamps, to assist with user actions.</p>
+          <h3>HubSpot Property History Cleaner</h3>
+          <p>Python script that processes HubSpot property history CSV exports, transforming raw data into readable, chronologically-sorted format for auditing and analysis.</p>
           <div class="project-tech">
             <span>Python</span>
             <span>HubSpot</span>
@@ -1202,15 +1198,14 @@
 
         <!-- Project 3 -->
         <div class="project-card">
-          <h3>Discord Bot for managing server permissions</h3>
-          <p>A Javascript-based Discord bot that automates role assignments and permission management, improving server organization and user experience. The idea was to cater to users who would want to receive notifications of specific channels.</p>
+          <h3>Discord Bot: Tako-Bot</h3>
+          <p>JavaScript-based Discord bot that automates role assignments and permission management, allowing users to opt-in to specific channel notifications.</p>
           <div class="project-tech">
-            <span>Javascript</span>
+            <span>JavaScript</span>
             <span>Heroku</span>
             <span>GitHub</span>
           </div>
           <div class="project-links">
-            <!-- <a href="#"><i class="fas fa-external-link-alt"></i> Live Demo</a> -->
             <a href="https://github.com/F00NG3R1N0/Tako-Bot"><i class="fab fa-github"></i> Source</a>
           </div>
         </div>
@@ -1241,18 +1236,16 @@
     <div class="container">
       <div class="footer-inner">
 
-        <!-- Certificates Accordion -->
         <details class="cert-accordion">
           <summary><i class="fas fa-certificate"></i> View Certifications &amp; Credentials</summary>
           <div class="cert-grid">
             <span class="cert-item">Intro to SQL <span class="cert-date">· Kaggle 2021</span></span>
             <span class="cert-item">Python <span class="cert-date">· Kaggle 2021</span></span>
-            <!-- Add more accordingly -->
           </div>
         </details>
 
         <div class="footer-social">
-          <a href="https://github.com/yapsiakfoong" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
+          <a href="https://github.com/F00NG3R1N0" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
           <a href="https://linkedin.com/in/yapsiakfoong" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
           <a href="mailto:yapsiakfoong@gmail.com" aria-label="Email"><i class="fas fa-envelope"></i></a>
         </div>
@@ -1274,10 +1267,10 @@
 
       // ---------- Dark Mode Toggle (CV Site) ----------
       const darkToggle = document.getElementById('darkToggle');
-      const STORAGE_KEY = 'cv-theme'; // Unique key for CV site
+      const STORAGE_KEY = 'cv-theme';
 
       const savedTheme = localStorage.getItem(STORAGE_KEY);
-      let currentTheme = savedTheme || 'light'; // Default to light for CV site
+      let currentTheme = savedTheme || 'light';
 
       if (currentTheme === 'dark') {
         document.documentElement.setAttribute('data-theme', 'dark');
@@ -1309,7 +1302,6 @@
         navLinks.classList.toggle('open');
       });
 
-      // Close menu when a link is clicked
       document.querySelectorAll('.nav-links a').forEach(link => {
         link.addEventListener('click', function() {
           hamburger.classList.remove('active');
@@ -1317,7 +1309,6 @@
         });
       });
 
-      // Close menu when clicking outside
       document.addEventListener('click', function(e) {
         if (!e.target.closest('nav') && navLinks.classList.contains('open')) {
           hamburger.classList.remove('active');
@@ -1327,7 +1318,7 @@
 
       // ---------- Rotating Tagline ----------
       const taglines = [
-        'Building scalable automation pipelines',
+        'Automation with Python & JS',
         'Bridging marketing and engineering',
         'Turning data into business impact',
         'Crafting efficient CRM ecosystems'
@@ -1357,8 +1348,8 @@
 
       const commands = {
         whoami: 'Yap Siak Foong · Actuarial Science grad · Marketing Ops turned Developer',
-        skills: 'Python, JavaScript, SQL, HTML/CSS, Marketo, Salesforce, Power Automate, Tableau, Git',
-        experience: '2X Marketing (2024–present) · NielsenIQ (2022–2024)',
+        skills: 'Python, JavaScript, SQL, HTML/CSS, Marketo, HubSpot, Salesforce, Power Automate, Tableau, Git',
+        experience: '2X Marketing (2024–2026) · NielsenIQ (2022–2024)',
         projects: 'Check out my featured projects at the #projects section above!',
         email: 'yapsiakfoong@gmail.com',
         about: 'I automate things. Then I build the things that do the automating.',
