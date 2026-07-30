@@ -679,6 +679,34 @@
       margin-left: 6px;
     }
 
+    /* Certificate Link Styling */
+    .cert-item a {
+  color: var(--text);
+  transition: color var(--transition);
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.cert-item a:hover {
+  color: var(--brand);
+}
+
+.cert-item a .cert-date {
+  color: var(--text-light);
+  font-weight: 400;
+}
+
+.cert-item a i {
+  font-size: 0.6rem;
+  opacity: 0.6;
+  transition: opacity var(--transition);
+}
+
+.cert-item a:hover i {
+  opacity: 1;
+}
+
     /* ---------- Terminal Overlay ---------- */
     .terminal-overlay {
       display: none;
@@ -1239,8 +1267,18 @@
         <details class="cert-accordion">
           <summary><i class="fas fa-certificate"></i> View Certifications &amp; Credentials</summary>
           <div class="cert-grid">
-            <span class="cert-item">Intro to SQL <span class="cert-date">· Kaggle 2021</span></span>
-            <span class="cert-item">Python <span class="cert-date">· Kaggle 2021</span></span>
+            <span class="cert-item">
+              <a href="https://www.kaggle.com/learn/certification/yapsiakfoong/intro-to-sql" target="_blank">
+        Intro to SQL <span class="cert-date">· Kaggle 2021</span>
+        <i class="fas fa-external-link-alt"></i>
+      </a>
+            </span>
+            <span class="cert-item">
+              <a href="https://www.kaggle.com/learn/certification/yapsiakfoong/python" target="_blank">
+                Python <span class="cert-date">· Kaggle 2021</span>
+                <i class="fas fa-external-link-alt"></i>
+              </a>
+            </span>
           </div>
         </details>
 
