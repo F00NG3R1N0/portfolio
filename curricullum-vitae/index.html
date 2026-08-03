@@ -6,12 +6,16 @@
   <title>Foong · Software Dev</title>
   <!-- Font Awesome for Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+  <!-- Google Fonts: Space Grotesk (display) + Inter (body) + JetBrains Mono (data/code accents) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
   <style>
     /* ---------- CSS Variables / Brand ---------- */
     :root {
       --brand: #478eba;
       --brand-dark: #2e6f94;
       --brand-light: #e6f2f8;
+      --accent: #b9791f;
       --bg: #ffffff;
       --bg-alt: #f8fafc;
       --text: #1e293b;
@@ -20,6 +24,9 @@
       --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
       --radius: 12px;
       --transition: 0.3s ease;
+      --font-display: 'Space Grotesk', 'Futura', 'Century Gothic', sans-serif;
+      --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      --font-mono: 'JetBrains Mono', 'Courier New', monospace;
     }
 
     /* Dark Mode Variables */
@@ -30,6 +37,7 @@
       --text-light: #94a3b8;
       --border: #334155;
       --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+      --accent: #f9c96a;
     }
 
     /* ---------- Reset & Base ---------- */
@@ -44,7 +52,7 @@
     }
 
     body {
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      font-family: var(--font-body);
       background: var(--bg);
       color: var(--text);
       line-height: 1.6;
@@ -59,6 +67,24 @@
     }
     a:hover {
       color: var(--brand-dark);
+    }
+
+    a:focus-visible,
+    button:focus-visible,
+    input:focus-visible,
+    summary:focus-visible {
+      outline: 2px solid var(--brand);
+      outline-offset: 3px;
+      border-radius: 4px;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.001ms !important;
+        scroll-behavior: auto !important;
+      }
     }
 
     .container {
@@ -143,7 +169,7 @@
     }
 
     .logo {
-      font-family: 'Futura', 'Century Gothic', 'Apple Gothic', sans-serif;
+      font-family: var(--font-display);
       font-size: 1.3rem;
       font-weight: 700;
       color: var(--text);
@@ -188,6 +214,10 @@
     }
     .nav-links a:hover::after {
       width: 100%;
+    }
+
+    .nav-resume-link {
+      display: none;
     }
 
     /* Hamburger Menu */
@@ -272,7 +302,7 @@
       color: var(--text);
       font-size: 1rem;
       transition: all var(--transition);
-      font-family: monospace;
+      font-family: var(--font-mono);
       font-weight: 700;
     }
     .terminal-trigger:hover {
@@ -291,6 +321,7 @@
     }
 
     .section-title {
+      font-family: var(--font-display);
       font-size: 2rem;
       font-weight: 700;
       margin-bottom: 12px;
@@ -307,22 +338,27 @@
 
     /* ---------- Hero ---------- */
     #hero {
-      padding: 60px 0 80px;
+      padding: 60px 0 64px;
       border-bottom: 1px solid var(--border);
     }
     #hero h1 {
-      font-family: 'Futura', 'Century Gothic', 'Apple Gothic', sans-serif;
+      font-family: var(--font-display);
       font-size: 3.2rem;
-      font-weight: 800;
+      font-weight: 700;
       letter-spacing: -1px;
       line-height: 1.1;
     }
     #hero .tagline {
-      font-size: 1.4rem;
+      font-family: var(--font-mono);
+      font-size: 1.25rem;
       font-weight: 500;
       color: var(--brand);
-      margin: 8px 0 12px;
+      margin: 10px 0 12px;
       min-height: 2.2rem;
+    }
+    #hero .tagline::before {
+      content: '> ';
+      color: var(--text-light);
     }
     #hero .sub-headline {
       font-size: 1.1rem;
@@ -339,6 +375,7 @@
       flex-wrap: wrap;
       gap: 14px;
       align-items: center;
+      margin-bottom: 40px;
     }
     .hero-actions .social-icon {
       font-size: 1.5rem;
@@ -348,6 +385,37 @@
     }
     .hero-actions .social-icon:hover {
       color: var(--brand);
+    }
+
+    /* Impact stats strip — signature element */
+    .stat-strip {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0;
+      max-width: 640px;
+      border-top: 1px solid var(--border);
+      padding-top: 24px;
+    }
+    .stat-strip .stat {
+      padding-right: 20px;
+    }
+    .stat-strip .stat + .stat {
+      border-left: 1px solid var(--border);
+      padding-left: 20px;
+    }
+    .stat-strip .stat-num {
+      font-family: var(--font-mono);
+      font-size: 1.6rem;
+      font-weight: 600;
+      color: var(--accent);
+      display: block;
+      line-height: 1.2;
+    }
+    .stat-strip .stat-label {
+      font-size: 0.78rem;
+      color: var(--text-light);
+      margin-top: 2px;
+      display: block;
     }
 
     /* ---------- About + Skills (2-col) ---------- */
@@ -394,7 +462,8 @@
       margin-bottom: 20px;
     }
     .skills-group h4 {
-      font-size: 0.8rem;
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
       text-transform: uppercase;
       letter-spacing: 0.5px;
       color: var(--text-light);
@@ -433,9 +502,9 @@
 
     .exploring {
       margin-top: 16px;
-      font-size: 0.9rem;
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
       color: var(--text-light);
-      font-style: italic;
     }
     .exploring i {
       margin-right: 6px;
@@ -443,14 +512,14 @@
     }
     .exploring strong {
       color: var(--brand);
-      font-style: normal;
+      font-weight: 600;
     }
 
     /* ---------- Experience (Timeline) ---------- */
     .timeline {
       display: flex;
       flex-direction: column;
-      gap: 40px;
+      gap: 48px;
     }
     .timeline-item {
       position: relative;
@@ -462,9 +531,10 @@
       flex-wrap: wrap;
       justify-content: space-between;
       align-items: baseline;
-      margin-bottom: 8px;
+      margin-bottom: 6px;
     }
     .timeline-item .meta h3 {
+      font-family: var(--font-display);
       font-size: 1.2rem;
       font-weight: 700;
     }
@@ -473,9 +543,16 @@
       font-weight: 600;
     }
     .timeline-item .meta .date {
-      font-size: 0.85rem;
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
       color: var(--text-light);
       font-weight: 500;
+    }
+    .timeline-item .role-context {
+      font-size: 0.92rem;
+      color: var(--text-light);
+      margin: 6px 0 14px;
+      max-width: 700px;
     }
     .timeline-item ul {
       list-style: none;
@@ -485,7 +562,7 @@
     .timeline-item ul li {
       position: relative;
       padding-left: 20px;
-      margin-bottom: 8px;
+      margin-bottom: 10px;
       color: var(--text-light);
     }
     .timeline-item ul li::before {
@@ -505,6 +582,7 @@
       margin-top: 8px;
     }
     .tech-tags span {
+      font-family: var(--font-mono);
       background: var(--brand-light);
       color: var(--brand-dark);
       padding: 2px 12px;
@@ -539,6 +617,7 @@
       box-shadow: 0 20px 30px -10px rgba(71, 142, 186, 0.15);
     }
     .project-card h3 {
+      font-family: var(--font-display);
       font-size: 1.2rem;
       margin-bottom: 6px;
     }
@@ -554,6 +633,7 @@
       margin-bottom: 16px;
     }
     .project-card .project-tech span {
+      font-family: var(--font-mono);
       background: var(--bg);
       padding: 2px 12px;
       border-radius: 50px;
@@ -681,31 +761,31 @@
 
     /* Certificate Link Styling */
     .cert-item a {
-  color: var(--text);
-  transition: color var(--transition);
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-}
+      color: var(--text);
+      transition: color var(--transition);
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
 
-.cert-item a:hover {
-  color: var(--brand);
-}
+    .cert-item a:hover {
+      color: var(--brand);
+    }
 
-.cert-item a .cert-date {
-  color: var(--text-light);
-  font-weight: 400;
-}
+    .cert-item a .cert-date {
+      color: var(--text-light);
+      font-weight: 400;
+    }
 
-.cert-item a i {
-  font-size: 0.6rem;
-  opacity: 0.6;
-  transition: opacity var(--transition);
-}
+    .cert-item a i {
+      font-size: 0.6rem;
+      opacity: 0.6;
+      transition: opacity var(--transition);
+    }
 
-.cert-item a:hover i {
-  opacity: 1;
-}
+    .cert-item a:hover i {
+      opacity: 1;
+    }
 
     /* ---------- Terminal Overlay ---------- */
     .terminal-overlay {
@@ -758,7 +838,7 @@
     .terminal-header .title {
       color: #a6a9b0;
       font-size: 0.8rem;
-      font-family: monospace;
+      font-family: var(--font-mono);
     }
     .terminal-close {
       background: none;
@@ -772,7 +852,7 @@
     }
     .terminal-body {
       padding: 20px;
-      font-family: 'Courier New', monospace;
+      font-family: var(--font-mono);
       color: #cdd6f4;
       font-size: 0.9rem;
       overflow-y: auto;
@@ -808,7 +888,7 @@
       background: transparent;
       border: none;
       color: #cdd6f4;
-      font-family: 'Courier New', monospace;
+      font-family: var(--font-mono);
       font-size: 0.9rem;
       flex: 1;
       outline: none;
@@ -865,12 +945,28 @@
         display: none;
       }
 
-      /* Adjust header actions on mobile */
-      .header-actions .btn-resume span {
+      /* Adjust header actions on mobile — resume moves into the nav menu instead */
+      .header-actions .btn-resume {
         display: none;
       }
-      .header-actions .btn-resume i {
-        margin: 0;
+      .nav-links a.nav-resume-link {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        width: 100%;
+        margin-top: 8px;
+        padding: 12px;
+        background: var(--brand);
+        color: #fff;
+        border-radius: 50px;
+        font-weight: 600;
+        font-size: 0.95rem;
+        transition: background var(--transition);
+      }
+      .nav-links a.nav-resume-link:hover {
+        background: var(--brand-dark);
+        color: #fff;
       }
       .dark-toggle,
       .terminal-trigger {
@@ -883,7 +979,19 @@
         font-size: 2.2rem;
       }
       #hero .tagline {
-        font-size: 1.1rem;
+        font-size: 1.05rem;
+      }
+
+      .stat-strip {
+        grid-template-columns: 1fr 1fr;
+        row-gap: 20px;
+      }
+      .stat-strip .stat:nth-child(3) {
+        border-left: none;
+        padding-left: 0;
+        grid-column: 1 / -1;
+        border-top: 1px solid var(--border);
+        padding-top: 16px;
       }
 
       .about-skills-grid {
@@ -932,14 +1040,6 @@
         margin-left: 0;
       }
 
-      .header-actions .btn-resume {
-        padding: 4px 10px;
-        font-size: 0.7rem;
-      }
-      .header-actions .btn-resume span {
-        display: none;
-      }
-
       .section-title {
         font-size: 1.6rem;
       }
@@ -983,11 +1083,12 @@
         <a href="#experience">Experience</a>
         <a href="#projects">Projects</a>
         <a href="#contact">Contact</a>
+        <a href="https://drive.google.com/file/d/1uVUIXsiGbBR4871mAgNcEr9K8NCUqzH2/view?usp=sharing" class="nav-resume-link" download><i class="fas fa-file-pdf"></i> Download Resume</a>
       </div>
 
       <div class="header-actions">
-        <a href="https://drive.google.com/file/d/1HqTZV9OE8yIT_WXcAlx5ebwPCwC0taEr/view?usp=sharing" class="btn-resume" download><i class="fas fa-file-pdf"></i> <span>Resume</span></a>
-        <button class="terminal-trigger" id="terminalTrigger" aria-label="Open Terminal">&lt;/&gt;</button>
+        <a href="https://drive.google.com/file/d/1uVUIXsiGbBR4871mAgNcEr9K8NCUqzH2/view?usp=sharing" class="btn-resume" download><i class="fas fa-file-pdf"></i> <span>Resume</span></a>
+        <button class="terminal-trigger" id="terminalTrigger" aria-label="Open Terminal"><i class="fas fa-terminal"></i></button>
         <button class="dark-toggle" id="darkToggle" aria-label="Toggle dark mode">
           <i class="fas fa-moon"></i>
         </button>
@@ -1021,7 +1122,7 @@
   <section id="hero">
     <div class="container">
       <h1>Yap Siak Foong</h1>
-      <div class="tagline" id="rotatingTagline">Automation with Python &amp; JS</div>
+      <div class="tagline" id="rotatingTagline">Automation with Python &amp; JavaScript</div>
       <p class="sub-headline">
         Marketing Operations turned Software Engineer &middot;
         <span class="highlight">Actuarial Science background</span> &middot;
@@ -1033,6 +1134,20 @@
         <div style="text-align: center;">
           <a href="https://github.com/F00NG3R1N0" target="_blank" class="social-icon" aria-label="GitHub"><i class="fab fa-github"></i></a>
           <a href="https://linkedin.com/in/yapsiakfoong" target="_blank" class="social-icon" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+        </div>
+      </div>
+      <div class="stat-strip">
+        <div class="stat">
+          <span class="stat-num">30%</span>
+          <span class="stat-label">faster campaign turnaround after automating manual edits</span>
+        </div>
+        <div class="stat">
+          <span class="stat-num">1,000+</span>
+          <span class="stat-label">product records audited &amp; corrected in a single cleanup project</span>
+        </div>
+        <div class="stat">
+          <span class="stat-num">8+</span>
+          <span class="stat-label">client accounts supported across marketing &amp; ops tooling</span>
         </div>
       </div>
     </div>
@@ -1048,7 +1163,7 @@
             <strong>I started my career optimizing marketing operations with Marketo and HubSpot, but I kept hitting the limits of no-code tools. So I learned to code. Now I build the tools that marketers wish they had.</strong>
           </p>
           <p>
-            With a background in Actuarial Science, I bring rigorous analytical thinking to every project. I thrive at the intersection of business operations and engineering, automating workflows and building clean, efficient systems.
+            With a background in Actuarial Science, I bring rigorous analytical thinking to every project. I thrive at the intersection of business operations and engineering — the person teams call when a workflow breaks, a tracking script misfires, or a manual process needs to disappear.
           </p>
           <div class="pillars">
             <div class="pillar">
@@ -1057,7 +1172,7 @@
             </div>
             <div class="pillar">
               <h4><i class="fas fa-cogs"></i> Operations Engineering</h4>
-              <p>Marketo/HubSpot workflows, Python scripts, Power Automate.</p>
+              <p>Marketo/HubSpot workflows, Python scripts, root-cause debugging.</p>
             </div>
             <div class="pillar">
               <h4><i class="fas fa-layer-group"></i> Full-Stack Curiosity</h4>
@@ -1129,7 +1244,7 @@
   <section id="experience">
     <div class="container">
       <h2 class="section-title">Work <span>Experience</span></h2>
-      <p class="section-subtitle">A timeline of my professional journey—building systems, automating workflows, and driving results.</p>
+      <p class="section-subtitle">A timeline of my professional journey — building systems, automating workflows, and driving results. (Client names withheld per confidentiality.)</p>
 
       <div class="timeline">
 
@@ -1139,22 +1254,24 @@
             <h3>Marketing Operations Specialist <span class="company">· 2X Marketing</span></h3>
             <span class="date">May 2024 – June 2026 <em>(Promoted June 2025)</em></span>
           </div>
+          <p class="role-context">Rotated across 8+ client accounts spanning SaaS, fintech, and enterprise software — ramping up on new tools and platforms on the job, often with no formal handover.</p>
           <ul>
-            <li><strong>Built and maintained HTML/CSS email templates and landing pages</strong> from designs provided by creative team, implementing A/B testing logic and ensuring cross-client compatibility.</li>
-            <li><strong>Developed Python automation scripts</strong> to reduce manual text edits for email campaigns, cutting turnaround time by 30%.</li>
-            <li><strong>Debugged cross-platform tracking issues</strong>: identified Webflow-HubSpot UTM misconfiguration and GA4 duplicate trigger, implementing permanent fixes.</li>
-            <li><strong>Performed full HubSpot CRM audits</strong>, documenting best practices and ensuring smooth handovers to internal teams.</li>
-            <li><strong>Built Python script</strong> to clean and reorganize HubSpot property history exports into a readable, chronological format for analysis.</li>
-            <li><strong>Managed knowledge transfer and documentation</strong> for client activations, working with developers to troubleshoot CMS integration issues.</li>
-            <li><strong>Worked across 8+ client accounts</strong>, adapting quickly to new tools and platforms including Workfront, CI360, and AEM.</li>
+            <li><strong>Built responsive HTML/CSS emails and Marketo landing pages</strong> from Figma designs, implementing A/B testing logic and fixing rendering issues across email clients.</li>
+            <li><strong>Audited HubSpot workflows and lifecycle stages</strong> for an enterprise account, then partnered with the data team to build a cleanup workflow that fed cleaner data into client reporting.</li>
+            <li><strong>Traced a broken UTM-tracking issue</strong> to a Webflow form that was posting field data directly to HubSpot instead of embedding the HubSpot form — worked with a developer to fix it without disturbing the page layout.</li>
+            <li><strong>Diagnosed a GA4 duplicate-event bug</strong>, consulting an analytics specialist to isolate a tracking trigger that was firing twice, and corrected the rule.</li>
+            <li><strong>Built a Python script to automate repetitive email production work</strong> — naming conventions, UTM tagging, and text edits for webinar campaigns — cutting turnaround time by 30%.</li>
+            <li><strong>Helped resolve a light/dark-mode rendering issue</strong> in HTML email, learning that email clients don't share a single fix and building the most robust cross-client solution available.</li>
+            <li><strong>Ran a full HubSpot CRM audit</strong> on my final account, documenting best practices and continuity notes to ensure a clean handover.</li>
+            <li><strong>Wrote a Python script to reshape HubSpot's raw property-history exports</strong> into a chronologically sorted, human-readable format, saving hours of manual review each cycle.</li>
           </ul>
           <div class="tech-tags">
             <span>Marketo</span>
             <span>HubSpot</span>
             <span>Salesforce</span>
+            <span>Webflow</span>
+            <span>GA4</span>
             <span>Power Automate</span>
-            <span>Asana</span>
-            <span>Monday.com</span>
             <span>Python</span>
             <span>HTML/CSS</span>
           </div>
@@ -1166,22 +1283,21 @@
             <h3>Data Processing Specialist <span class="company">· NielsenIQ</span></h3>
             <span class="date">Apr 2022 – Apr 2024</span>
           </div>
+          <p class="role-context">On the New Zealand Reference Data team, researching and coding barcoded retail products against client-defined classification guidelines, later expanding into automation and quality assurance.</p>
           <ul>
-            <li><strong>Utilized Python (Pandas) to validate, clean, and transform large datasets</strong>, ensuring 99.9% data integrity for MNC client databases.</li>
-            <li><strong>Improved internal Python script</strong> by automating file naming conventions, reducing manual steps and saving 15% processing time.</li>
-            <li><strong>Managed major cleanup project</strong> reviewing and fixing 1000+ items, assessing downstream impact on client reporting.</li>
-            <li><strong>Served as Quality Representative</strong>, performing root cause analysis by auditing database changes and implementing short-term fixes and long-term preventive actions.</li>
-            <li><strong>Managed 10+ client change requests monthly</strong>, reviewing backend mapping rules to ensure changes did not impact reporting for other clients.</li>
-            <li><strong>Assigned to New Zealand Reference Data team</strong>, performing item coding for retailers such as Countdown and New World following strict client guidelines.</li>
-            <li><strong>Managed allocation tasks</strong> by exporting system files, running internal scripts, and coordinating team workloads.</li>
-            <li><strong>Acted as Fun Ambassador</strong> organizing office-wide events for 200+ employees—demonstrating leadership, communication, and project management outside of technical duties.</li>
+            <li><strong>Performed item coding for national retail clients</strong>, researching product barcodes and descriptions to assign standardized classification values to thousands of records.</li>
+            <li><strong>Maintained client mapping rules</strong> that translated report-specific criteria into the correct classification values used downstream in client reporting.</li>
+            <li><strong>Improved an internal Python allocation script</strong> after noticing a predictable file-naming pattern — rebuilt it to auto-detect the latest exports, removing a manual renaming step and cutting processing time by 15%.</li>
+            <li><strong>Led a major cleanup project</strong>, reviewing and correcting 1,000+ item records for a global client while cross-checking each change against other clients' reporting to avoid unintended impact.</li>
+            <li><strong>Served as team Quality Representative</strong>, running root-cause analysis on reporting errors by auditing database change history, then pairing short-term fixes with longer-term preventive measures.</li>
+            <li><strong>Acted as office "Fun Ambassador,"</strong> organizing events for 200+ employees — leadership and coordination experience outside of technical duties.</li>
           </ul>
           <div class="tech-tags">
             <span>Python</span>
             <span>Excel VBA</span>
             <span>Microsoft Dynamics</span>
             <span>Data Validation</span>
-            <span>RCA</span>
+            <span>Root Cause Analysis</span>
           </div>
         </div>
 
@@ -1269,13 +1385,19 @@
           <div class="cert-grid">
             <span class="cert-item">
               <a href="https://www.kaggle.com/learn/certification/yapsiakfoong/intro-to-sql" target="_blank">
-        Intro to SQL <span class="cert-date">· Kaggle 2021</span>
-        <i class="fas fa-external-link-alt"></i>
-      </a>
+                Intro to SQL <span class="cert-date">· Kaggle 2021</span>
+                <i class="fas fa-external-link-alt"></i>
+              </a>
             </span>
             <span class="cert-item">
               <a href="https://www.kaggle.com/learn/certification/yapsiakfoong/python" target="_blank">
                 Python <span class="cert-date">· Kaggle 2021</span>
+                <i class="fas fa-external-link-alt"></i>
+              </a>
+            </span>
+            <span class="cert-item">
+              <a href="https://www.udemy.com/certificate/UC-f10ea91d-ace8-4ac7-b470-c8a039e3953b/" target="_blank">
+                Ultimate Google Analytics 4 course <span class="cert-date">· Udemy 2026</span>
                 <i class="fas fa-external-link-alt"></i>
               </a>
             </span>
@@ -1356,7 +1478,7 @@
 
       // ---------- Rotating Tagline ----------
       const taglines = [
-        'Automation with Python & JS',
+        'Automation with Python & JavaScript',
         'Bridging marketing and engineering',
         'Turning data into business impact',
         'Crafting efficient CRM ecosystems'
