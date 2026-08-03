@@ -216,6 +216,10 @@
       width: 100%;
     }
 
+    .nav-resume-link {
+      display: none;
+    }
+
     /* Hamburger Menu */
     .hamburger {
       display: none;
@@ -941,12 +945,28 @@
         display: none;
       }
 
-      /* Adjust header actions on mobile */
-      .header-actions .btn-resume span {
+      /* Adjust header actions on mobile — resume moves into the nav menu instead */
+      .header-actions .btn-resume {
         display: none;
       }
-      .header-actions .btn-resume i {
-        margin: 0;
+      .nav-links a.nav-resume-link {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        width: 100%;
+        margin-top: 8px;
+        padding: 12px;
+        background: var(--brand);
+        color: #fff;
+        border-radius: 50px;
+        font-weight: 600;
+        font-size: 0.95rem;
+        transition: background var(--transition);
+      }
+      .nav-links a.nav-resume-link:hover {
+        background: var(--brand-dark);
+        color: #fff;
       }
       .dark-toggle,
       .terminal-trigger {
@@ -1020,14 +1040,6 @@
         margin-left: 0;
       }
 
-      .header-actions .btn-resume {
-        padding: 4px 10px;
-        font-size: 0.7rem;
-      }
-      .header-actions .btn-resume span {
-        display: none;
-      }
-
       .section-title {
         font-size: 1.6rem;
       }
@@ -1071,6 +1083,7 @@
         <a href="#experience">Experience</a>
         <a href="#projects">Projects</a>
         <a href="#contact">Contact</a>
+        <a href="https://drive.google.com/file/d/1HqTZV9OE8yIT_WXcAlx5ebwPCwC0taEr/view?usp=sharing" class="nav-resume-link" download><i class="fas fa-file-pdf"></i> Download Resume</a>
       </div>
 
       <div class="header-actions">
