@@ -132,18 +132,18 @@
 
     @media (prefers-reduced-motion: no-preference) {
       .coming-soon {
-        animation: coming-soon-pulse 2.4s ease-in-out infinite;
+        animation: coming-soon-pulse 3.6s ease-in-out infinite;
       }
     }
 
     @keyframes coming-soon-pulse {
       0%, 100% {
-        opacity: 1;
+        transform: scale(1);
         box-shadow: var(--shadow);
       }
       50% {
-        opacity: 0.85;
-        box-shadow: 0 0 0 6px rgba(71, 142, 186, 0.12);
+        transform: scale(1.015);
+        box-shadow: var(--shadow), 0 0 0 4px rgba(71, 142, 186, 0.08);
       }
     }
 
