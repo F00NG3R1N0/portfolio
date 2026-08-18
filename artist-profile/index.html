@@ -110,14 +110,41 @@
 
     /* ---------- Coming Soon ---------- */
     .coming-soon {
-      display: inline-block;
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
       background: var(--brand-light);
       color: var(--brand-dark);
-      padding: 15px 80px;
-      border-radius: 25px;
-      font-size: 6rem;
+      padding: 0.6em 1.8em;
+      border-radius: 999px;
+      font-size: clamp(1.5rem, 5vw, 3rem);
       font-weight: 600;
+      letter-spacing: 0.02em;
       margin-bottom: 20px;
+      border: 2px solid var(--brand);
+      box-shadow: var(--shadow);
+    }
+
+    [data-theme="dark"] .coming-soon {
+      background: rgba(71, 142, 186, 0.15);
+      color: var(--brand);
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+      .coming-soon {
+        animation: coming-soon-pulse 2.4s ease-in-out infinite;
+      }
+    }
+
+    @keyframes coming-soon-pulse {
+      0%, 100% {
+        opacity: 1;
+        box-shadow: var(--shadow);
+      }
+      50% {
+        opacity: 0.85;
+        box-shadow: 0 0 0 6px rgba(71, 142, 186, 0.12);
+      }
     }
 
     /* ---------- Header / Nav ---------- */
